@@ -86,56 +86,72 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 <a href="_voca_master_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#ifndef __VOCAMASTER__</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define __VOCAMASTER__</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;fstream&gt;</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="list_8h.html">list.h</a>&quot;</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">using namespace </span>std;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="class_voca.html">   24</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_voca.html">Voca</a></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;{</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="class_voca.html#a1a88043d0ee4da2437a547f4988fb16f">   27</a></span>&#160;  <span class="keywordtype">char</span>* <a class="code" href="class_voca.html#a1a88043d0ee4da2437a547f4988fb16f">word</a>;</div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="class_voca.html#a6c3bfb657c01ae9fe6b2af83d545978b">   28</a></span>&#160;  <span class="keywordtype">char</span>* <a class="code" href="class_voca.html#a6c3bfb657c01ae9fe6b2af83d545978b">meaning</a>;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <a class="code" href="class_voca.html">Voca</a>();</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <a class="code" href="class_voca.html">Voca</a>(<span class="keywordtype">char</span>* w, <span class="keywordtype">char</span>* m);</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  ~<a class="code" href="class_voca.html">Voca</a>();</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;};</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="class_voca_engine.html">   35</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_voca_engine.html">VocaEngine</a></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;{</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">   38</a></span>&#160;  <a class="code" href="class_list.html">List &lt;Voca*&gt;</a> *<a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>;</div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="class_voca_engine.html#a97f53364148cce52e71effad64202321">   39</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="class_voca_engine.html#a97f53364148cce52e71effad64202321">dirty</a>;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <a class="code" href="class_voca_engine.html">VocaEngine</a>(istream *i);</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  ~<a class="code" href="class_voca_engine.html">VocaEngine</a>(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <span class="keywordtype">bool</span> addVoca(<span class="keywordtype">char</span>* w, <span class="keywordtype">char</span>* m);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <span class="keywordtype">bool</span> delVoca(<span class="keywordtype">char</span>* w);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <span class="keywordtype">bool</span> initList(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <span class="keywordtype">bool</span> saveChange(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <span class="keywordtype">int</span> testVoca(<span class="keywordtype">void</span>);</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;};</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* __VOCAMASTER__ */</span><span class="preprocessor"></span></div>
-<div class="ttc" id="class_voca_engine_html"><div class="ttname"><a href="class_voca_engine.html">VocaEngine</a></div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8h_source.html#l00035">VocaMaster.h:35</a></div></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#ifndef __VOCAMASTER__</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define __VOCAMASTER__</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;fstream&gt;</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="list_8h.html">list.h</a>&quot;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">using namespace </span>std;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="class_voca.html">   25</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_voca.html">Voca</a></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;{</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="class_voca.html#a1a88043d0ee4da2437a547f4988fb16f">   28</a></span>&#160;  <span class="keywordtype">char</span>* <a class="code" href="class_voca.html#a1a88043d0ee4da2437a547f4988fb16f">word</a>;</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="class_voca.html#a6c3bfb657c01ae9fe6b2af83d545978b">   29</a></span>&#160;  <span class="keywordtype">char</span>* <a class="code" href="class_voca.html#a6c3bfb657c01ae9fe6b2af83d545978b">meaning</a>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="class_voca.html#a6bc68853efd1880544267eaf188905ea">   30</a></span>&#160;  <span class="keywordtype">int</span> <a class="code" href="class_voca.html#a6bc68853efd1880544267eaf188905ea">exp</a>;</div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="class_voca.html#a671fb36c75e2ccc34fe1afb2fe10c247">   31</a></span>&#160;  <span class="keywordtype">int</span> <a class="code" href="class_voca.html#a671fb36c75e2ccc34fe1afb2fe10c247">level</a>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <a class="code" href="class_voca.html">Voca</a>();</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <a class="code" href="class_voca.html">Voca</a>(<span class="keywordtype">char</span>* w, <span class="keywordtype">char</span>* m);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  ~<a class="code" href="class_voca.html">Voca</a>();</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <span class="keywordtype">char</span>* getWord(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <span class="keywordtype">char</span>* getMean(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <span class="keywordtype">int</span> getExp(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <span class="keywordtype">int</span> getLevel(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;};</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="class_voca_engine.html">   44</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_voca_engine.html">VocaEngine</a></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;{</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">   47</a></span>&#160;  <a class="code" href="class_list.html">List &lt;Voca*&gt;</a> *<a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>;</div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="class_voca_engine.html#a97f53364148cce52e71effad64202321">   48</a></span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="class_voca_engine.html#a97f53364148cce52e71effad64202321">dirty</a>;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="keywordtype">bool</span> addVoca(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <span class="keywordtype">bool</span> initList(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keywordtype">bool</span> saveChange(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <span class="keywordtype">int</span> testVoca(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <span class="keywordtype">void</span> printTitle(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <span class="keywordtype">void</span> printEnd(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <span class="keywordtype">void</span> manageList(<span class="keywordtype">int</span> index);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <span class="keywordtype">bool</span> dupCheck(<span class="keywordtype">char</span>* str);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <a class="code" href="class_voca_engine.html">VocaEngine</a>(istream *i);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  ~<a class="code" href="class_voca_engine.html">VocaEngine</a>(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <span class="keywordtype">void</span> showMenu(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  <span class="keywordtype">bool</span> processMenu(<span class="keywordtype">void</span>);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;};</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* __VOCAMASTER__ */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="class_voca_engine_html"><div class="ttname"><a href="class_voca_engine.html">VocaEngine</a></div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8h_source.html#l00044">VocaMaster.h:44</a></div></div>
 <div class="ttc" id="class_list_html"><div class="ttname"><a href="class_list.html">List&lt; Voca * &gt;</a></div></div>
-<div class="ttc" id="class_voca_html_a1a88043d0ee4da2437a547f4988fb16f"><div class="ttname"><a href="class_voca.html#a1a88043d0ee4da2437a547f4988fb16f">Voca::word</a></div><div class="ttdeci">char * word</div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8h_source.html#l00027">VocaMaster.h:27</a></div></div>
+<div class="ttc" id="class_voca_html_a1a88043d0ee4da2437a547f4988fb16f"><div class="ttname"><a href="class_voca.html#a1a88043d0ee4da2437a547f4988fb16f">Voca::word</a></div><div class="ttdeci">char * word</div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8h_source.html#l00028">VocaMaster.h:28</a></div></div>
+<div class="ttc" id="class_voca_html_a6bc68853efd1880544267eaf188905ea"><div class="ttname"><a href="class_voca.html#a6bc68853efd1880544267eaf188905ea">Voca::exp</a></div><div class="ttdeci">int exp</div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8h_source.html#l00030">VocaMaster.h:30</a></div></div>
 <div class="ttc" id="list_8h_html"><div class="ttname"><a href="list_8h.html">list.h</a></div><div class="ttdoc">List Class Library. </div></div>
-<div class="ttc" id="class_voca_engine_html_a2646d40c08456470c7dd545a8bf4bffb"><div class="ttname"><a href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">VocaEngine::list</a></div><div class="ttdeci">List&lt; Voca * &gt; * list</div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8h_source.html#l00038">VocaMaster.h:38</a></div></div>
-<div class="ttc" id="class_voca_engine_html_a97f53364148cce52e71effad64202321"><div class="ttname"><a href="class_voca_engine.html#a97f53364148cce52e71effad64202321">VocaEngine::dirty</a></div><div class="ttdeci">bool dirty</div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8h_source.html#l00039">VocaMaster.h:39</a></div></div>
-<div class="ttc" id="class_voca_html"><div class="ttname"><a href="class_voca.html">Voca</a></div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8h_source.html#l00024">VocaMaster.h:24</a></div></div>
-<div class="ttc" id="class_voca_html_a6c3bfb657c01ae9fe6b2af83d545978b"><div class="ttname"><a href="class_voca.html#a6c3bfb657c01ae9fe6b2af83d545978b">Voca::meaning</a></div><div class="ttdeci">char * meaning</div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8h_source.html#l00028">VocaMaster.h:28</a></div></div>
+<div class="ttc" id="class_voca_engine_html_a2646d40c08456470c7dd545a8bf4bffb"><div class="ttname"><a href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">VocaEngine::list</a></div><div class="ttdeci">List&lt; Voca * &gt; * list</div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8h_source.html#l00047">VocaMaster.h:47</a></div></div>
+<div class="ttc" id="class_voca_engine_html_a97f53364148cce52e71effad64202321"><div class="ttname"><a href="class_voca_engine.html#a97f53364148cce52e71effad64202321">VocaEngine::dirty</a></div><div class="ttdeci">bool dirty</div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8h_source.html#l00048">VocaMaster.h:48</a></div></div>
+<div class="ttc" id="class_voca_html"><div class="ttname"><a href="class_voca.html">Voca</a></div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8h_source.html#l00025">VocaMaster.h:25</a></div></div>
+<div class="ttc" id="class_voca_html_a6c3bfb657c01ae9fe6b2af83d545978b"><div class="ttname"><a href="class_voca.html#a6c3bfb657c01ae9fe6b2af83d545978b">Voca::meaning</a></div><div class="ttdeci">char * meaning</div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8h_source.html#l00029">VocaMaster.h:29</a></div></div>
+<div class="ttc" id="class_voca_html_a671fb36c75e2ccc34fe1afb2fe10c247"><div class="ttname"><a href="class_voca.html#a671fb36c75e2ccc34fe1afb2fe10c247">Voca::level</a></div><div class="ttdeci">int level</div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8h_source.html#l00031">VocaMaster.h:31</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 5 2015 19:05:56 for VocaMaster by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 12 2015 21:55:52 for VocaMaster by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

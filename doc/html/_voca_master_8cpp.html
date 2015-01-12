@@ -92,6 +92,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p>VocaMaster Source File.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;cstdlib&gt;</code><br/>
+<code>#include &lt;ctime&gt;</code><br/>
 <code>#include &quot;<a class="el" href="_voca_master_8h_source.html">VocaMaster.h</a>&quot;</code><br/>
 </div>
 <p><a href="_voca_master_8cpp_source.html">Go to the source code of this file.</a></p>
@@ -134,7 +135,7 @@ Purpose</h1>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_voca_master_8cpp_source.html#l00019">19</a> of file <a class="el" href="_voca_master_8cpp_source.html">VocaMaster.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_voca_master_8cpp_source.html#l00020">20</a> of file <a class="el" href="_voca_master_8cpp_source.html">VocaMaster.cpp</a>.</p>
 
 </div>
 </div>
@@ -148,7 +149,7 @@ Purpose</h1>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_voca_master_8cpp_source.html#l00020">20</a> of file <a class="el" href="_voca_master_8cpp_source.html">VocaMaster.cpp</a>.</p>
+<p>Definition at line <a class="el" href="_voca_master_8cpp_source.html#l00021">21</a> of file <a class="el" href="_voca_master_8cpp_source.html">VocaMaster.cpp</a>.</p>
 
 </div>
 </div>
@@ -167,26 +168,26 @@ Purpose</h1>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="_voca_master_8cpp_source.html#l00072">72</a> of file <a class="el" href="_voca_master_8cpp_source.html">VocaMaster.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;               {</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  ifstream *iFile = <span class="keyword">new</span> ifstream(<a class="code" href="_voca_master_8cpp.html#a8de29f7c8bbf1a81cc6e71ac602032d3">FILENAME</a>);</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  <a class="code" href="class_voca_engine.html">VocaEngine</a> *engine = <span class="keyword">new</span> <a class="code" href="class_voca_engine.html">VocaEngine</a>(iFile);  </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  iFile-&gt;close();</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  <span class="keywordtype">bool</span> good = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  <span class="keywordflow">while</span> (good) {</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    engine-&gt;<a class="code" href="class_voca_engine.html#a2e62805e216c6a8d8c4077a2a07950b0">showMenu</a>();</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    good = engine-&gt;<a class="code" href="class_voca_engine.html#a42670f72f4a1dec2aef5675f0497a074">processMenu</a>();</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  }</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  <span class="keywordflow">if</span> (engine)</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keyword">delete</span> (engine);</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;}</div>
-<div class="ttc" id="class_voca_engine_html_a42670f72f4a1dec2aef5675f0497a074"><div class="ttname"><a href="class_voca_engine.html#a42670f72f4a1dec2aef5675f0497a074">VocaEngine::processMenu</a></div><div class="ttdeci">bool processMenu(void)</div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8cpp_source.html#l00411">VocaMaster.cpp:411</a></div></div>
-<div class="ttc" id="class_voca_engine_html_a2e62805e216c6a8d8c4077a2a07950b0"><div class="ttname"><a href="class_voca_engine.html#a2e62805e216c6a8d8c4077a2a07950b0">VocaEngine::showMenu</a></div><div class="ttdeci">void showMenu(void)</div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8cpp_source.html#l00401">VocaMaster.cpp:401</a></div></div>
-<div class="ttc" id="_voca_master_8cpp_html_a8de29f7c8bbf1a81cc6e71ac602032d3"><div class="ttname"><a href="_voca_master_8cpp.html#a8de29f7c8bbf1a81cc6e71ac602032d3">FILENAME</a></div><div class="ttdeci">#define FILENAME</div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8cpp_source.html#l00019">VocaMaster.cpp:19</a></div></div>
+<p>Definition at line <a class="el" href="_voca_master_8cpp_source.html#l00073">73</a> of file <a class="el" href="_voca_master_8cpp_source.html">VocaMaster.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;               {</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  ifstream *iFile = <span class="keyword">new</span> ifstream(<a class="code" href="_voca_master_8cpp.html#a8de29f7c8bbf1a81cc6e71ac602032d3">FILENAME</a>);</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  <a class="code" href="class_voca_engine.html">VocaEngine</a> *engine = <span class="keyword">new</span> <a class="code" href="class_voca_engine.html">VocaEngine</a>(iFile);  </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  iFile-&gt;close();</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  <span class="keywordtype">bool</span> good = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  <span class="keywordflow">while</span> (good) {</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    engine-&gt;<a class="code" href="class_voca_engine.html#a2e62805e216c6a8d8c4077a2a07950b0">showMenu</a>();</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    good = engine-&gt;<a class="code" href="class_voca_engine.html#a42670f72f4a1dec2aef5675f0497a074">processMenu</a>();</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  }</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  <span class="keywordflow">if</span> (engine)</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keyword">delete</span> (engine);</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;}</div>
+<div class="ttc" id="class_voca_engine_html_a42670f72f4a1dec2aef5675f0497a074"><div class="ttname"><a href="class_voca_engine.html#a42670f72f4a1dec2aef5675f0497a074">VocaEngine::processMenu</a></div><div class="ttdeci">bool processMenu(void)</div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8cpp_source.html#l00440">VocaMaster.cpp:440</a></div></div>
+<div class="ttc" id="class_voca_engine_html_a2e62805e216c6a8d8c4077a2a07950b0"><div class="ttname"><a href="class_voca_engine.html#a2e62805e216c6a8d8c4077a2a07950b0">VocaEngine::showMenu</a></div><div class="ttdeci">void showMenu(void)</div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8cpp_source.html#l00430">VocaMaster.cpp:430</a></div></div>
+<div class="ttc" id="_voca_master_8cpp_html_a8de29f7c8bbf1a81cc6e71ac602032d3"><div class="ttname"><a href="_voca_master_8cpp.html#a8de29f7c8bbf1a81cc6e71ac602032d3">FILENAME</a></div><div class="ttdeci">#define FILENAME</div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8cpp_source.html#l00020">VocaMaster.cpp:20</a></div></div>
 <div class="ttc" id="class_voca_engine_html"><div class="ttname"><a href="class_voca_engine.html">VocaEngine</a></div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8h_source.html#l00044">VocaMaster.h:44</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -194,7 +195,7 @@ Purpose</h1>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 12 2015 21:55:52 for VocaMaster by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 12 2015 22:38:01 for VocaMaster by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

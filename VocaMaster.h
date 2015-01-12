@@ -50,12 +50,13 @@ private:
   bool addVoca(void);
   bool initList(void);
   bool saveChange(void);
-  int testVoca(void);
- 
+  Voca* selectVoca(void);
+  bool dupCheck(char* str);
+  
   void printTitle(void);
   void printEnd(void);
   void manageList(int index);
-  bool dupCheck(char* str);
+  void testVoca(void);
 public:
   VocaEngine(istream *i);
   ~VocaEngine(void);

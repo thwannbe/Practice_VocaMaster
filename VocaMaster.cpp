@@ -14,6 +14,7 @@
 ///
 
 #include <cstdlib>
+#include <ctime>
 #include "VocaMaster.h"
 
 #define FILENAME "voca.dat"
@@ -245,6 +246,34 @@ void VocaEngine::manageList(int index) {
   }
 }
 
+Voca* VocaEngine::selectVoca() {
+  srand(time(0));
+  int index = rand() % list->getSize();
+
+  return list->getContent(index);
+}
+
+void VocaEngine::testVoca() {
+  cout << "#                [ TEST ]" << endl;
+  cout << "#    Write appropriate word matching following meanings." << endl;
+  cout << "#" << endl;
+  Voca *one = selectVoca();
+  cout << "#    " << one->getMean() << " : ";
+  
+  char buf[100]; cin >> buf;
+  char *answer = new char[sizeof(char) * Strlen(buf) + 1];
+  Strcpy(answer, buf);
+
+  if (Strequal(one->getWord(), answer)) {
+    cout << "#    COLLECT!" << endl;
+    cout << "#" << endl;
+  } else {
+    cout << "#    WRONG!" << endl;
+    cout << "#    COLLECT ANSWER IS [" << one->getWord() << "]" << endl;
+    cout << "#" << endl;
+  }
+}
+
 bool VocaEngine::dupCheck(char* str) {
   char *tmp = new char[sizeof(char) * Strlen(str) + 1];
   Strcpy(tmp, str);
@@ -438,17 +467,12 @@ bool VocaEngine::processMenu()
       break;
     case '2':
       manageList(0);
+      good = true;
       break;
-    /*
     case '3':
-      cout << "PROGRAM TERMINATION" << endl;
-      if(engine->saveChange())
-        cout << "SAVE DATA..." << endl;
-      else
-        cout << "NO SAVE" << endl;
-      pExit = true;
+      testVoca();
+      good = true;
       break;
-    */
     case '4':
       cout << "#    PROGRAM TERMINATION" << endl;
       cout << "#" << endl;

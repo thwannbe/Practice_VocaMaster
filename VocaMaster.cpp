@@ -8,6 +8,7 @@
 /// 2014/12/23 Suwon Oh created @n
 /// 2014/12/23 Suwon Oh adapted to Doxygen @n
 /// 2015/01/12 Suwon Oh updated some functions @n
+/// 2015/01/13 Suwon Oh finished test algorithm @n
 ///
 /// @section purpose_section Purpose
 /// Application for self-study
@@ -22,7 +23,13 @@
 
 using namespace std;
 
-// implemented needed functions
+////////////////////////////////////////////////////////////////////////////////
+///
+/// @brief Self-implemented multi-handy inline functions
+/// @details In this program, there are many functions handling string @n
+///          but for not using string header library, most string handling @n
+///          functions are created based on how it works basically.
+///
 
 static inline bool isWhite(char c) {
   return (c == '\n' || c == '\t' || c == ' ');
@@ -68,7 +75,45 @@ static inline bool Strequal(char* str1, char* str2) {
 
   return true;
 }
-// main function
+
+static inline int StrToInt(char* str) {
+  int ret = 0;
+
+  for (int i = 0; i < Strlen(str); i++)
+    ret = (ret * 10) + (int)(str[i] - '0');
+
+  return ret;
+}
+
+static inline char* IntToStr(int num) {
+  int tmp = num;
+  int length = 0;
+  
+  if (num == 0) {
+    char *ret = new char[2];
+    ret[0] = '0'; ret[1] = '\0';
+    return ret;
+  }
+
+  while (tmp > 0) {
+    tmp /= 10;
+    length++;
+  }
+
+  char *buf = new char[sizeof(char) * length + 1];
+  
+  int index = length - 1;
+  for (tmp = num; tmp > 0; tmp /= 10)
+    buf[index--] = (char)(tmp % 10 + '0');
+  buf[length] = '\0';
+
+  return buf;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+///
+/// @brief main function
+///
 
 int main(void) {
   ifstream *iFile = new ifstream(FILENAME);
@@ -87,21 +132,28 @@ int main(void) {
   return 0;
 }
 
-// Voca implementation
+////////////////////////////////////////////////////////////////////////////////
+///
+/// @brief Voca class functions implementation
+///
 
-Voca::Voca()
+Voca::Voca() : exp(0), level(1)
 {
   word = NULL;
   meaning = NULL;
+  explain = NULL;
 }
 
-Voca::Voca(char* w, char* m)
+Voca::Voca(char* w, char* m, char* e, int x, int l) : exp(x), level(l)
 {
   word = new char[sizeof(char) * Strlen(w) + 1];
   Strcpy(word, w);
 
   meaning = new char[sizeof(char) * Strlen(m) + 1];
   Strcpy(meaning, m);
+
+  explain = new char[sizeof(char) * Strlen(e) + 1];
+  Strcpy(explain, e);
 }
 
 Voca::~Voca()
@@ -110,6 +162,8 @@ Voca::~Voca()
     delete(word);
   if (meaning)
     delete(meaning);
+  if (explain)
+    delete(explain);
 }
 
 char* Voca::getWord() {
@@ -120,6 +174,10 @@ char* Voca::getMean() {
   return meaning;
 }
 
+char* Voca::getExplain() {
+  return explain;
+}
+
 int Voca::getExp() {
   return exp;
 }
@@ -128,7 +186,165 @@ int Voca::getLevel() {
   return level;
 }
 
-// VocaEngine implementation
+void Voca::gainScore() {
+  exp += (MAX_LEVEL - level + 1) * 10; // MAX_LEVEL should be lower than 10
+
+  if (exp >= 100) { // maximum exp is 100
+    if (level < MAX_LEVEL) {
+      exp -= 100;
+      level++;
+    } else {
+      exp = 100;
+    }
+  }
+}
+
+void Voca::loseScore() {
+  exp -= level * 10; // MAX_LEVEL should be lower than 10
+
+  if (exp < 0) {
+    if (level == 1) {
+      exp = 0;
+    } else {
+      exp += 100;
+      level--;
+    }
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+///
+/// @brief VocaEngine class private fundamental functions implementation
+///
+
+bool VocaEngine::addVoca()
+{
+  char word[100];
+  char mean[100];
+  char explain[100];
+
+  cout << "#    WORD : ";
+  cin >> word;
+
+  if (dupCheck(word)) { // duplicated
+    cout << "#    ALREADY EXIST!!" << endl;
+    cout << "#" << endl;
+    return true;
+  }
+
+  cout << "#    MEANING : ";
+  cin >> mean;
+
+  cout << "#    EXPLAIN : "; // can be null
+  cin >> explain;
+  cout << "#" << endl;
+
+  if (list->addNode(new Voca(word, mean, explain, 0, 1))) {
+    if (!dirty)
+      dirty = true;
+    return true;
+  }
+
+  return false;
+}
+
+bool VocaEngine::initList()
+{
+  if (list)
+    delete(list);
+  
+  list = new List <Voca*>();
+  
+  if (!dirty)
+    dirty = true;
+}
+
+bool VocaEngine::saveChange()
+{
+  ofstream *o = NULL;
+  if (dirty) {
+    o = new ofstream(FILENAME); 
+    for (unsigned int i = 0; i < list->getSize(); i++) {
+      char* word = list->getContent(i)->getWord();
+      char* meaning = list->getContent(i)->getMean();
+      char* explain = list->getContent(i)->getExplain();
+      char* exp_str = IntToStr(list->getContent(i)->getExp());
+      char* level_str = IntToStr(list->getContent(i)->getLevel());
+      
+      cout << "#    write " << word << " " << meaning << " "
+           << explain << " " << exp_str << " " << level_str << endl;
+
+      int pnt = 0;
+      while(word[pnt] != '\0')
+        o->put(word[pnt++]);
+      // put token
+      o->put('%');
+
+      pnt = 0;
+      while(meaning[pnt] != '\0')
+        o->put(meaning[pnt++]);
+      o->put('%');
+
+      pnt = 0;
+      while(explain[pnt] != '\0')
+        o->put(explain[pnt++]);
+      o->put('%');
+
+      pnt = 0;
+      while(exp_str[pnt] != '\0')
+        o->put(exp_str[pnt++]);
+      o->put('%');
+
+      pnt = 0;
+      while(level_str[pnt] != '\0')
+        o->put(level_str[pnt++]);
+      o->put('$');
+    }
+    
+    o->close();
+
+    return true;
+  } else {
+    return false;
+  }
+  return false;
+}
+
+Voca* VocaEngine::selectVoca() {
+  srand(time(0));
+  int index = rand() % list->getSize();
+
+  while (!levelPenalty(list->getContent(index)))
+    index = rand() % list->getSize();
+
+  return list->getContent(index);
+}
+
+bool VocaEngine::levelPenalty(Voca* voca) {
+  srand(time(0));
+  int coefficient = (rand() % voca->MAX_LEVEL) + 1; // 1 ~ MAX_LEVEL
+  
+  if ((voca->getLevel() - coefficient) <= 0)
+    return true; // means select
+  else
+    return false; // means unselect
+}
+
+bool VocaEngine::dupCheck(char* str) {
+  char *tmp = new char[sizeof(char) * Strlen(str) + 1];
+  Strcpy(tmp, str);
+  
+  for (unsigned int i = 0; i < list->getSize(); i++)
+    if (Strequal(list->getContent(i)->getWord(), tmp))
+      return true;
+
+  return false;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+///
+/// @brief VocaEngine class private abstract functions implementation
+///
 
 void VocaEngine::printTitle(void) {
   cout << "#######################################################" << endl; // 50 sharps
@@ -246,16 +462,18 @@ void VocaEngine::manageList(int index) {
   }
 }
 
-Voca* VocaEngine::selectVoca() {
-  srand(time(0));
-  int index = rand() % list->getSize();
-
-  return list->getContent(index);
-}
-
-void VocaEngine::testVoca() {
-  cout << "#                [ TEST ]" << endl;
-  cout << "#    Write appropriate word matching following meanings." << endl;
+void VocaEngine::testVoca(bool first) {
+  if (list->getSize() == 0) {
+    cout << "#" << endl;
+    cout << "#             EMPTY LIST" << endl;
+    cout << "#" << endl;
+    return;
+  }
+  
+  if (first) {
+    cout << "#                [ TEST ]" << endl;
+    cout << "#    Write appropriate word matching following meanings." << endl;
+  }
   cout << "#" << endl;
   Voca *one = selectVoca();
   cout << "#    " << one->getMean() << " : ";
@@ -266,24 +484,41 @@ void VocaEngine::testVoca() {
 
   if (Strequal(one->getWord(), answer)) {
     cout << "#    COLLECT!" << endl;
+    one->gainScore();
     cout << "#" << endl;
   } else {
     cout << "#    WRONG!" << endl;
-    cout << "#    COLLECT ANSWER IS [" << one->getWord() << "]" << endl;
+    if (one->getExplain() != NULL)
+      cout << "#    COLLECT ANSWER IS [" << one->getWord()
+           << " -- " << one->getExplain() << "]" << endl;
+    else
+      cout << "#    COLLECT ANSWER IS [" << one->getWord() << "]" << endl;
+    one->loseScore();
+    cout << "#" << endl;
+  }
+
+  if (!dirty)
+    dirty = true;
+  
+  cout << "#    (1) NEXT TEST (2) EXIT" << endl;
+  cout << "#    SELECT : ";
+  char sel[100]; cin >> sel;
+
+  if (sel[0] != '1' && sel[0] != '2') {
+    cout << "#    WRONG INPUT" << endl;
+    cout << "#" << endl;
+  } else if (sel[0] == '1') {
+    testVoca(false); 
+  } else {
+    cout << "#    TEST EXIT" << endl;
     cout << "#" << endl;
   }
 }
 
-bool VocaEngine::dupCheck(char* str) {
-  char *tmp = new char[sizeof(char) * Strlen(str) + 1];
-  Strcpy(tmp, str);
-  
-  for (unsigned int i = 0; i < list->getSize(); i++)
-    if (Strequal(list->getContent(i)->getWord(), tmp))
-      return true;
-
-  return false;
-}
+////////////////////////////////////////////////////////////////////////////////
+///
+/// @brief VocaEngine class constructors and destructors implementation
+///
 
 VocaEngine::VocaEngine(istream *i)
 {
@@ -301,6 +536,10 @@ VocaEngine::VocaEngine(istream *i)
     // fill out previous list
     char word[100];
     char mean[100];
+    char explain[100];
+    char exp_buf[100];
+    char level_buf[100];
+    int exp, level;
 
     // get word
     int index = 0;
@@ -321,7 +560,48 @@ VocaEngine::VocaEngine(istream *i)
       mean[index++] = i->get();
     mean[index] = '\0';
     
-    if (!list->addNode(new Voca(word, mean))) {
+    if (i->peek() == '%') {
+      i->get(); // consume token
+    } else { // i->eof() || i->bad() || i->peek() == '$'
+      cout << "#    DATA FILE ERROR" << endl;
+      exit(1);
+    }
+
+    // get explain
+    index = 0;
+    while (i->peek() != '%' && i->peek() != '$' && !i->eof() && !i->bad())
+      explain[index++] = i->get();
+    explain[index] = '\0';
+    
+    if (i->peek() == '%') {
+      i->get(); // consume token
+    } else { // i->eof() || i->bad() || i->peek() == '$'
+      cout << "#    DATA FILE ERROR" << endl;
+      exit(1);
+    }
+
+    // get exp
+    index = 0;
+    while (i->peek() != '%' && i->peek() != '$' && !i->eof() && !i->bad())
+      exp_buf[index++] = i->get();
+    exp_buf[index] = '\0';
+    exp = StrToInt(exp_buf);
+    
+    if (i->peek() == '%') {
+      i->get(); // consume token
+    } else { // i->eof() || i->bad() || i->peek() == '$'
+      cout << "#    DATA FILE ERROR" << endl;
+      exit(1);
+    }
+
+    // get level
+    index = 0;
+    while (i->peek() != '%' && i->peek() != '$' && !i->eof() && !i->bad())
+      level_buf[index++] = i->get();
+    level_buf[index] = '\0';
+    level = StrToInt(level_buf);
+
+    if (!list->addNode(new Voca(word, mean, explain, exp, level))) {
       cout << "#    DATA GENERATING ERROR" << endl;
       exit(1);
     }
@@ -357,75 +637,10 @@ VocaEngine::~VocaEngine()
   printEnd();
 }
 
-bool VocaEngine::addVoca()
-{
-  char word[100];
-  char mean[100];
-
-  cout << "#    WORD : ";
-  cin >> word;
-
-  if (dupCheck(word)) { // duplicated
-    cout << "#    ALREADY EXIST!!" << endl;
-    cout << "#" << endl;
-    return true;
-  }
-
-  cout << "#    MEANING : ";
-  cin >> mean;
-  cout << "#" << endl;
-
-  if (list->addNode(new Voca(word, mean))) {
-    if (!dirty)
-      dirty = true;
-    return true;
-  }
-
-  return false;
-}
-
-bool VocaEngine::initList()
-{
-  if (list)
-    delete(list);
-  
-  list = new List <Voca*>();
-  
-  if (!dirty)
-    dirty = true;
-}
-
-bool VocaEngine::saveChange()
-{
-  ofstream *o = NULL;
-  if (dirty) {
-    o = new ofstream(FILENAME); 
-    for (unsigned int i = 0; i < list->getSize(); i++) {
-      char* word = list->getContent(i)->getWord();
-      char* meaning = list->getContent(i)->getMean();
-      
-      cout << "#    write " << word << " " << meaning << endl;
-
-      int pnt = 0;
-      while(word[pnt] != '\0')
-        o->put(word[pnt++]);
-      // put token
-      o->put('%');
-
-      pnt = 0;
-      while(meaning[pnt] != '\0')
-        o->put(meaning[pnt++]);
-      o->put('$');
-    }
-    
-    o->close();
-
-    return true;
-  } else {
-    return false;
-  }
-  return false;
-}
+////////////////////////////////////////////////////////////////////////////////
+///
+/// @brief VocaEngine class public abstract control functions implementation
+///
 
 void VocaEngine::showMenu()
 {
@@ -470,7 +685,7 @@ bool VocaEngine::processMenu()
       good = true;
       break;
     case '3':
-      testVoca();
+      testVoca(true);
       good = true;
       break;
     case '4':

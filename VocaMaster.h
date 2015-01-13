@@ -8,6 +8,7 @@
 /// 2014/12/23 Suwon Oh created @n
 /// 2014/12/23 Suwon Oh adapted to Doxygen @n
 /// 2015/01/12 Suwon Oh updated some functions @n
+/// 2015/01/13 Suwon Oh finished test algorithm @n
 /// 
 /// @section purpose_section Purpose
 /// Application for self-study
@@ -36,12 +37,15 @@ using namespace std;
 class Voca
 {
 private:
-  char* word;         ///< Vocabulary word
-  char* meaning;      ///< Vocabulary meaning (in your language)
-  int exp;            ///< Vocabulary experience gauge
-  int level;          ///< Vocabulary level information
+  char* word;               ///< Vocabulary word
+  char* meaning;            ///< Vocabulary meaning (in your language)
+  char* explain;            ///< Vocabulary additional explanation
+  int exp;                  ///< Vocabulary experience gauge
+  int level;                ///< Vocabulary level information
 
 public:
+  static const int MAX_LEVEL = 5;  ///< Maximum level range
+  
   /// @name constructors
   /// @{
   
@@ -49,11 +53,14 @@ public:
   /// @details Defined for empty Voca instance
   Voca();
 
-  /// @brief constructor having w, and m
+  /// @brief constructor having w, m, e, x, and l
   /// @details Defined for creating fill-out Voca instance
   /// @param w word string
   /// @param m meaning string
-  Voca(char* w, char* m);
+  /// @param e explanation string
+  /// @param x experience score
+  /// @param l level point
+  Voca(char* w, char* m, char* e, int x, int l);
   /// @}
 
   /// @name destructor
@@ -78,6 +85,11 @@ public:
   /// @retval meaning string
   char* getMean(void);
 
+  /// @brief getting explanation
+  ///
+  /// @retval explanation string
+  char* getExplain(void);
+
   /// @brief getting experience score
   ///
   /// @retval experience score
@@ -87,6 +99,20 @@ public:
   ///
   /// @retval level point
   int getLevel(void);
+  /// @}
+  
+  /// @name functional attributes
+  /// @{
+
+  /// @brief gaining experience score
+  /// @details If test success, this word gain experience score @n
+  ///          and have a chance to get upper level point.
+  void gainScore(void);
+
+  /// @brief losing experience score
+  /// @details If test fail, this word lose experience score @n
+  ///          and might be lowered its level point.
+  void loseScore(void);
   /// @}
 };
 
@@ -104,7 +130,7 @@ private:
   List <Voca*> *list;     ///< Voca class list
   bool dirty;             ///< dirty bit which means an update exists
   
-  /// @name private functional attributes
+  /// @name private fundamental functional attributes
   /// @{
 
   /// @brief adding new vocabulary
@@ -113,21 +139,88 @@ private:
   /// @retval false if adding fails
   bool addVoca(void);
 
+  /// @brief initializing vocabulary list
+  ///
+  /// @retval true if initialization success
+  /// @retval false if initialization fail
   bool initList(void);
-  bool saveChange(void);
-  Voca* selectVoca(void);
-  bool dupCheck(char* str);
-  
-  void printTitle(void);
-  void printEnd(void);
-  void manageList(int index);
-  void testVoca(void);
-public:
-  VocaEngine(istream *i);
-  ~VocaEngine(void);
 
+  /// @brief saving updated data
+  ///
+  /// @retval true if save success
+  /// @retval false if save fail
+  bool saveChange(void);
+
+  /// @brief selecting one word
+  ///
+  /// @retval vocabulary class pointer
+  Voca* selectVoca(void);
+
+  /// @brief calculating level penalty and return boolean value
+  ///
+  /// @retval true if this voca pass level penalty
+  /// @retval false if this voca fail level penalty
+  bool levelPenalty(Voca* voca);
+
+  /// @brief duplicated checking
+  ///
+  /// @retval true if duplication
+  /// @retval false if no duplication
+  bool dupCheck(char* str);
+  /// @}
+
+  /// @name private abstract functional attributes
+  /// @{
+
+  /// @brief printing title to console
+  void printTitle(void);
+
+  /// @brief printing ending to console
+  void printEnd(void);
+
+  /// @brief managing list menu
+  ///
+  /// @param index starting voca list index
+  void manageList(int index);
+
+  /// @brief vocabulary test function
+  ///
+  /// @param first flag whether this test is first time
+  void testVoca(bool first);
+  /// @}
+
+public:
+  /// @name constructors
+  /// @{
+
+  /// @brief constructor having istream pointer
+  /// @details Loading previous vocabulary data list @n
+  ///          and initialize all member variables.
+  VocaEngine(istream *i);
+  /// @}
+
+  /// @name destructors
+  /// @{
+
+  /// @brief default destructor
+  /// @details Saving automatically updated data into disk @n
+  ///          and delete all data in memory.
+  ~VocaEngine(void);
+  /// @}
+  
+  /// @name abstract control attributes
+  /// @{
+
+  /// @brief showing menu to console
   void showMenu(void);
+
+  /// @brief processing menu with user
+  /// @details communicating with user through console I/O
+  ///
+  /// @retval true if program continue
+  /// @retval false if program termination
   bool processMenu(void);
+  /// @}
 };
 
 #endif /* __VOCAMASTER__ */

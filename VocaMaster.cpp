@@ -20,6 +20,7 @@
 
 #define FILENAME "voca.dat"
 #define VERSION  1.2
+#define TRACE_SAVE 0
 
 using namespace std;
 
@@ -271,8 +272,10 @@ bool VocaEngine::saveChange()
       char* exp_str = IntToStr(list->getContent(i)->getExp());
       char* level_str = IntToStr(list->getContent(i)->getLevel());
       
+#if TRACE_SAVE
       cout << "#    write " << word << " " << meaning << " "
            << explain << " " << exp_str << " " << level_str << endl;
+#endif
 
       int pnt = 0;
       while(word[pnt] != '\0')

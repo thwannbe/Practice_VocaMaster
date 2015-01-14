@@ -19,9 +19,9 @@
 #include <ctime>
 #include "VocaMaster.h"
 
-#define FILENAME "voca.dat"
-#define VERSION  1.2
-#define TRACE_SAVE 0
+#define FILENAME      "voca.dat"
+#define VERSION       1.2
+#define TRACE_SAVE    0
 
 using namespace std;
 
@@ -266,6 +266,7 @@ bool VocaEngine::saveChange()
   ofstream *o = NULL;
   if (dirty) {
     o = new ofstream(FILENAME); 
+    
     for (unsigned int i = 0; i < list->getSize(); i++) {
       char* word = list->getContent(i)->getWord();
       char* meaning = list->getContent(i)->getMean();
@@ -279,34 +280,38 @@ bool VocaEngine::saveChange()
 #endif
 
       int pnt = 0;
-      while(word[pnt] != '\0')
+      while(word[pnt] != '\0') {
         o->put(word[pnt++]);
-      // put token
+      }
       o->put('%');
 
       pnt = 0;
-      while(meaning[pnt] != '\0')
+      while(meaning[pnt] != '\0') {
         o->put(meaning[pnt++]);
+      }
       o->put('%');
 
       pnt = 0;
-      while(explain[pnt] != '\0')
+      while(explain[pnt] != '\0') {
         o->put(explain[pnt++]);
+      }
       o->put('%');
 
       pnt = 0;
-      while(exp_str[pnt] != '\0')
+      while(exp_str[pnt] != '\0') {
         o->put(exp_str[pnt++]);
+      }
       o->put('%');
 
       pnt = 0;
-      while(level_str[pnt] != '\0')
+      while(level_str[pnt] != '\0') {
         o->put(level_str[pnt++]);
+      }
       o->put('$');
     }
     
     o->close();
-
+    
     return true;
   } else {
     return false;

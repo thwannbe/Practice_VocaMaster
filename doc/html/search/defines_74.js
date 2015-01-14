@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['token',['TOKEN',['../_voca_master_8cpp.html#a5c3a83864bf5991d09aa5c2abb911bf0',1,'VocaMaster.cpp']]]
+  ['trace_5fsave',['TRACE_SAVE',['../_voca_master_8cpp.html#a4bcd6cfaa5abdefa7f5de418b309024e',1,'VocaMaster.cpp']]]
 ];

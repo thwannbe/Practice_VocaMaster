@@ -9,6 +9,7 @@
 /// 2014/12/23 Suwon Oh adapted to Doxygen @n
 /// 2015/01/12 Suwon Oh updated some functions @n
 /// 2015/01/13 Suwon Oh finished test algorithm @n
+/// 2015/01/14 Suwon Oh test complishment added @n
 ///
 /// @section purpose_section Purpose
 /// Application for self-study
@@ -465,7 +466,9 @@ void VocaEngine::manageList(int index) {
   }
 }
 
-void VocaEngine::testVoca(bool first) {
+void VocaEngine::testVoca(bool first, int correct, int total) {
+  int cor = correct;
+
   if (list->getSize() == 0) {
     cout << "#" << endl;
     cout << "#             EMPTY LIST" << endl;
@@ -488,6 +491,7 @@ void VocaEngine::testVoca(bool first) {
   if (Strequal(one->getWord(), answer)) {
     cout << "#    COLLECT!" << endl;
     one->gainScore();
+    cor++;
     cout << "#" << endl;
   } else {
     cout << "#    WRONG!" << endl;
@@ -507,14 +511,20 @@ void VocaEngine::testVoca(bool first) {
   cout << "#    SELECT : ";
   char sel[100]; cin >> sel;
 
-  if (sel[0] != '1' && sel[0] != '2') {
-    cout << "#    WRONG INPUT" << endl;
+  if (sel[0] != '1') {
+    if (sel[0] != '2') {
+      cout << "#    WRONG INPUT" << endl;
+      cout << "#" << endl;
+    }
     cout << "#" << endl;
-  } else if (sel[0] == '1') {
-    testVoca(false); 
+    cout << "#               [ TEST RESULT ]" << endl;
+    cout << "#    TOTAL PROBLEM  : " << total+1 << endl;
+    cout << "#    CORRECT ANSWER : " << cor << endl;
+    cout << "#    WRONG ANSWER   : " << total+1 - cor << endl;
+    cout << "#    SUCCESS RATE   : " << ((cor * 100) / (total + 1)) << "%" << endl;
+    cout << "#" << endl;
   } else {
-    cout << "#    TEST EXIT" << endl;
-    cout << "#" << endl;
+    testVoca(false, cor, total+1);
   }
 }
 
@@ -688,7 +698,7 @@ bool VocaEngine::processMenu()
       good = true;
       break;
     case '3':
-      testVoca(true);
+      testVoca(true, 0, 0);
       good = true;
       break;
     case '4':

@@ -9,7 +9,8 @@
 /// 2014/12/23 Suwon Oh adapted to Doxygen @n
 /// 2015/01/12 Suwon Oh updated some functions @n
 /// 2015/01/13 Suwon Oh finished test algorithm @n
-/// 
+/// 2015/01/14 Suwon Oh test complishment added @n
+///
 /// @section purpose_section Purpose
 /// Application for self-study
 ///
@@ -186,7 +187,9 @@ private:
   /// @brief vocabulary test function
   ///
   /// @param first flag whether this test is first time
-  void testVoca(bool first);
+  /// @param correct correct answer counts
+  /// @param total total test counts
+  void testVoca(bool first, int correct, int total);
   /// @}
 
 public:

@@ -184,110 +184,110 @@ Private Attributes</h2></td></tr>
 <p>Loading previous vocabulary data list <br/>
  and initialize all member variables. </p>
 
-<p>Definition at line <a class="el" href="_voca_master_8cpp_source.html#l00536">536</a> of file <a class="el" href="_voca_master_8cpp_source.html">VocaMaster.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00537"></a><span class="lineno">  537</span>&#160;{</div>
-<div class="line"><a name="l00538"></a><span class="lineno">  538</span>&#160;  <a class="code" href="class_voca_engine.html#a0e8a34d83bf357cd0a9148d155f7f4ba">printTitle</a>();</div>
-<div class="line"><a name="l00539"></a><span class="lineno">  539</span>&#160;  </div>
-<div class="line"><a name="l00540"></a><span class="lineno">  540</span>&#160;  <span class="keywordtype">bool</span> loaded = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00541"></a><span class="lineno">  541</span>&#160;</div>
-<div class="line"><a name="l00542"></a><span class="lineno">  542</span>&#160;  <a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a> = <span class="keyword">new</span> <a class="code" href="class_list.html">List &lt;Voca*&gt;</a>();</div>
-<div class="line"><a name="l00543"></a><span class="lineno">  543</span>&#160;  <a class="code" href="class_voca_engine.html#a97f53364148cce52e71effad64202321">dirty</a> = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00544"></a><span class="lineno">  544</span>&#160;</div>
-<div class="line"><a name="l00545"></a><span class="lineno">  545</span>&#160;  <span class="keywordflow">while</span> (!i-&gt;eof() &amp;&amp; !i-&gt;bad() &amp;&amp; i-&gt;peek() != -1) {</div>
-<div class="line"><a name="l00546"></a><span class="lineno">  546</span>&#160;    <span class="keywordflow">if</span> (!loaded) <span class="comment">// flag on</span></div>
-<div class="line"><a name="l00547"></a><span class="lineno">  547</span>&#160;      loaded = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00548"></a><span class="lineno">  548</span>&#160;</div>
-<div class="line"><a name="l00549"></a><span class="lineno">  549</span>&#160;    <span class="comment">// fill out previous list</span></div>
-<div class="line"><a name="l00550"></a><span class="lineno">  550</span>&#160;    <span class="keywordtype">char</span> word[100];</div>
-<div class="line"><a name="l00551"></a><span class="lineno">  551</span>&#160;    <span class="keywordtype">char</span> mean[100];</div>
-<div class="line"><a name="l00552"></a><span class="lineno">  552</span>&#160;    <span class="keywordtype">char</span> explain[100];</div>
-<div class="line"><a name="l00553"></a><span class="lineno">  553</span>&#160;    <span class="keywordtype">char</span> exp_buf[100];</div>
-<div class="line"><a name="l00554"></a><span class="lineno">  554</span>&#160;    <span class="keywordtype">char</span> level_buf[100];</div>
-<div class="line"><a name="l00555"></a><span class="lineno">  555</span>&#160;    <span class="keywordtype">int</span> exp, level;</div>
-<div class="line"><a name="l00556"></a><span class="lineno">  556</span>&#160;</div>
-<div class="line"><a name="l00557"></a><span class="lineno">  557</span>&#160;    <span class="comment">// get word</span></div>
-<div class="line"><a name="l00558"></a><span class="lineno">  558</span>&#160;    <span class="keywordtype">int</span> index = 0;</div>
-<div class="line"><a name="l00559"></a><span class="lineno">  559</span>&#160;    <span class="keywordflow">while</span> (i-&gt;peek() != <span class="charliteral">&#39;%&#39;</span> &amp;&amp; i-&gt;peek() != <span class="charliteral">&#39;$&#39;</span> &amp;&amp; !i-&gt;eof() &amp;&amp; !i-&gt;bad())</div>
-<div class="line"><a name="l00560"></a><span class="lineno">  560</span>&#160;      word[index++] = i-&gt;get();</div>
-<div class="line"><a name="l00561"></a><span class="lineno">  561</span>&#160;    word[index] = <span class="charliteral">&#39;\0&#39;</span>;</div>
-<div class="line"><a name="l00562"></a><span class="lineno">  562</span>&#160;    </div>
-<div class="line"><a name="l00563"></a><span class="lineno">  563</span>&#160;    <span class="keywordflow">if</span> (i-&gt;peek() == <span class="charliteral">&#39;%&#39;</span>) {</div>
-<div class="line"><a name="l00564"></a><span class="lineno">  564</span>&#160;      i-&gt;get(); <span class="comment">// consume token</span></div>
-<div class="line"><a name="l00565"></a><span class="lineno">  565</span>&#160;    } <span class="keywordflow">else</span> { <span class="comment">// i-&gt;eof() || i-&gt;bad() || i-&gt;peek() == &#39;$&#39;</span></div>
-<div class="line"><a name="l00566"></a><span class="lineno">  566</span>&#160;      cout &lt;&lt; <span class="stringliteral">&quot;#    DATA FILE ERROR&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00567"></a><span class="lineno">  567</span>&#160;      exit(1);</div>
-<div class="line"><a name="l00568"></a><span class="lineno">  568</span>&#160;    }</div>
-<div class="line"><a name="l00569"></a><span class="lineno">  569</span>&#160;    </div>
-<div class="line"><a name="l00570"></a><span class="lineno">  570</span>&#160;    <span class="comment">// get mean</span></div>
-<div class="line"><a name="l00571"></a><span class="lineno">  571</span>&#160;    index = 0;</div>
-<div class="line"><a name="l00572"></a><span class="lineno">  572</span>&#160;    <span class="keywordflow">while</span> (i-&gt;peek() != <span class="charliteral">&#39;%&#39;</span> &amp;&amp; i-&gt;peek() != <span class="charliteral">&#39;$&#39;</span> &amp;&amp; !i-&gt;eof() &amp;&amp; !i-&gt;bad())</div>
-<div class="line"><a name="l00573"></a><span class="lineno">  573</span>&#160;      mean[index++] = i-&gt;get();</div>
-<div class="line"><a name="l00574"></a><span class="lineno">  574</span>&#160;    mean[index] = <span class="charliteral">&#39;\0&#39;</span>;</div>
-<div class="line"><a name="l00575"></a><span class="lineno">  575</span>&#160;    </div>
-<div class="line"><a name="l00576"></a><span class="lineno">  576</span>&#160;    <span class="keywordflow">if</span> (i-&gt;peek() == <span class="charliteral">&#39;%&#39;</span>) {</div>
-<div class="line"><a name="l00577"></a><span class="lineno">  577</span>&#160;      i-&gt;get(); <span class="comment">// consume token</span></div>
-<div class="line"><a name="l00578"></a><span class="lineno">  578</span>&#160;    } <span class="keywordflow">else</span> { <span class="comment">// i-&gt;eof() || i-&gt;bad() || i-&gt;peek() == &#39;$&#39;</span></div>
-<div class="line"><a name="l00579"></a><span class="lineno">  579</span>&#160;      cout &lt;&lt; <span class="stringliteral">&quot;#    DATA FILE ERROR&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00580"></a><span class="lineno">  580</span>&#160;      exit(1);</div>
-<div class="line"><a name="l00581"></a><span class="lineno">  581</span>&#160;    }</div>
-<div class="line"><a name="l00582"></a><span class="lineno">  582</span>&#160;</div>
-<div class="line"><a name="l00583"></a><span class="lineno">  583</span>&#160;    <span class="comment">// get explain</span></div>
-<div class="line"><a name="l00584"></a><span class="lineno">  584</span>&#160;    index = 0;</div>
-<div class="line"><a name="l00585"></a><span class="lineno">  585</span>&#160;    <span class="keywordflow">while</span> (i-&gt;peek() != <span class="charliteral">&#39;%&#39;</span> &amp;&amp; i-&gt;peek() != <span class="charliteral">&#39;$&#39;</span> &amp;&amp; !i-&gt;eof() &amp;&amp; !i-&gt;bad())</div>
-<div class="line"><a name="l00586"></a><span class="lineno">  586</span>&#160;      explain[index++] = i-&gt;get();</div>
-<div class="line"><a name="l00587"></a><span class="lineno">  587</span>&#160;    explain[index] = <span class="charliteral">&#39;\0&#39;</span>;</div>
-<div class="line"><a name="l00588"></a><span class="lineno">  588</span>&#160;    </div>
-<div class="line"><a name="l00589"></a><span class="lineno">  589</span>&#160;    <span class="keywordflow">if</span> (i-&gt;peek() == <span class="charliteral">&#39;%&#39;</span>) {</div>
-<div class="line"><a name="l00590"></a><span class="lineno">  590</span>&#160;      i-&gt;get(); <span class="comment">// consume token</span></div>
-<div class="line"><a name="l00591"></a><span class="lineno">  591</span>&#160;    } <span class="keywordflow">else</span> { <span class="comment">// i-&gt;eof() || i-&gt;bad() || i-&gt;peek() == &#39;$&#39;</span></div>
-<div class="line"><a name="l00592"></a><span class="lineno">  592</span>&#160;      cout &lt;&lt; <span class="stringliteral">&quot;#    DATA FILE ERROR&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00593"></a><span class="lineno">  593</span>&#160;      exit(1);</div>
-<div class="line"><a name="l00594"></a><span class="lineno">  594</span>&#160;    }</div>
-<div class="line"><a name="l00595"></a><span class="lineno">  595</span>&#160;</div>
-<div class="line"><a name="l00596"></a><span class="lineno">  596</span>&#160;    <span class="comment">// get exp</span></div>
-<div class="line"><a name="l00597"></a><span class="lineno">  597</span>&#160;    index = 0;</div>
-<div class="line"><a name="l00598"></a><span class="lineno">  598</span>&#160;    <span class="keywordflow">while</span> (i-&gt;peek() != <span class="charliteral">&#39;%&#39;</span> &amp;&amp; i-&gt;peek() != <span class="charliteral">&#39;$&#39;</span> &amp;&amp; !i-&gt;eof() &amp;&amp; !i-&gt;bad())</div>
-<div class="line"><a name="l00599"></a><span class="lineno">  599</span>&#160;      exp_buf[index++] = i-&gt;get();</div>
-<div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160;    exp_buf[index] = <span class="charliteral">&#39;\0&#39;</span>;</div>
-<div class="line"><a name="l00601"></a><span class="lineno">  601</span>&#160;    exp = StrToInt(exp_buf);</div>
-<div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;    </div>
-<div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;    <span class="keywordflow">if</span> (i-&gt;peek() == <span class="charliteral">&#39;%&#39;</span>) {</div>
-<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;      i-&gt;get(); <span class="comment">// consume token</span></div>
-<div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160;    } <span class="keywordflow">else</span> { <span class="comment">// i-&gt;eof() || i-&gt;bad() || i-&gt;peek() == &#39;$&#39;</span></div>
-<div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160;      cout &lt;&lt; <span class="stringliteral">&quot;#    DATA FILE ERROR&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;      exit(1);</div>
-<div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;    }</div>
-<div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;</div>
-<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160;    <span class="comment">// get level</span></div>
-<div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160;    index = 0;</div>
-<div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160;    <span class="keywordflow">while</span> (i-&gt;peek() != <span class="charliteral">&#39;%&#39;</span> &amp;&amp; i-&gt;peek() != <span class="charliteral">&#39;$&#39;</span> &amp;&amp; !i-&gt;eof() &amp;&amp; !i-&gt;bad())</div>
-<div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;      level_buf[index++] = i-&gt;get();</div>
-<div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;    level_buf[index] = <span class="charliteral">&#39;\0&#39;</span>;</div>
-<div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160;    level = StrToInt(level_buf);</div>
-<div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160;</div>
-<div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>-&gt;<a class="code" href="class_list.html#ac8fff7396766358cee488223009ac578">addNode</a>(<span class="keyword">new</span> <a class="code" href="class_voca.html">Voca</a>(word, mean, explain, exp, level))) {</div>
-<div class="line"><a name="l00618"></a><span class="lineno">  618</span>&#160;      cout &lt;&lt; <span class="stringliteral">&quot;#    DATA GENERATING ERROR&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00619"></a><span class="lineno">  619</span>&#160;      exit(1);</div>
-<div class="line"><a name="l00620"></a><span class="lineno">  620</span>&#160;    }</div>
-<div class="line"><a name="l00621"></a><span class="lineno">  621</span>&#160;</div>
-<div class="line"><a name="l00622"></a><span class="lineno">  622</span>&#160;    <span class="keywordflow">if</span> (i-&gt;peek() == <span class="charliteral">&#39;$&#39;</span>) {</div>
-<div class="line"><a name="l00623"></a><span class="lineno">  623</span>&#160;      i-&gt;get(); <span class="comment">// consume token</span></div>
-<div class="line"><a name="l00624"></a><span class="lineno">  624</span>&#160;    } <span class="keywordflow">else</span> { <span class="comment">// i-&gt;eof() || i-&gt;bad() || i-&gt;peek() != &#39;%&#39;</span></div>
-<div class="line"><a name="l00625"></a><span class="lineno">  625</span>&#160;      cout &lt;&lt; <span class="stringliteral">&quot;#    DATA FILE ERROR&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00626"></a><span class="lineno">  626</span>&#160;      exit(1);</div>
-<div class="line"><a name="l00627"></a><span class="lineno">  627</span>&#160;    }</div>
-<div class="line"><a name="l00628"></a><span class="lineno">  628</span>&#160;</div>
-<div class="line"><a name="l00629"></a><span class="lineno">  629</span>&#160;    <span class="keywordflow">while</span> (isWhite(i-&gt;peek()))</div>
-<div class="line"><a name="l00630"></a><span class="lineno">  630</span>&#160;      i-&gt;get(); <span class="comment">// consume white space</span></div>
-<div class="line"><a name="l00631"></a><span class="lineno">  631</span>&#160;  }</div>
-<div class="line"><a name="l00632"></a><span class="lineno">  632</span>&#160;  <span class="keywordflow">if</span> (loaded)</div>
-<div class="line"><a name="l00633"></a><span class="lineno">  633</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#    DATA FILE LOADING COMPLETE&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00634"></a><span class="lineno">  634</span>&#160;  <span class="keywordflow">else</span> <span class="comment">// no prev data</span></div>
-<div class="line"><a name="l00635"></a><span class="lineno">  635</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#    CREATE NEW DATA FILE&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00636"></a><span class="lineno">  636</span>&#160;</div>
-<div class="line"><a name="l00637"></a><span class="lineno">  637</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00638"></a><span class="lineno">  638</span>&#160;}</div>
-<div class="ttc" id="class_voca_engine_html_a0e8a34d83bf357cd0a9148d155f7f4ba"><div class="ttname"><a href="class_voca_engine.html#a0e8a34d83bf357cd0a9148d155f7f4ba">VocaEngine::printTitle</a></div><div class="ttdeci">void printTitle(void)</div><div class="ttdoc">printing title to console </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8cpp_source.html#l00353">VocaMaster.cpp:353</a></div></div>
+<p>Definition at line <a class="el" href="_voca_master_8cpp_source.html#l00545">545</a> of file <a class="el" href="_voca_master_8cpp_source.html">VocaMaster.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00546"></a><span class="lineno">  546</span>&#160;{</div>
+<div class="line"><a name="l00547"></a><span class="lineno">  547</span>&#160;  <a class="code" href="class_voca_engine.html#a0e8a34d83bf357cd0a9148d155f7f4ba">printTitle</a>();</div>
+<div class="line"><a name="l00548"></a><span class="lineno">  548</span>&#160;  </div>
+<div class="line"><a name="l00549"></a><span class="lineno">  549</span>&#160;  <span class="keywordtype">bool</span> loaded = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00550"></a><span class="lineno">  550</span>&#160;</div>
+<div class="line"><a name="l00551"></a><span class="lineno">  551</span>&#160;  <a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a> = <span class="keyword">new</span> <a class="code" href="class_list.html">List &lt;Voca*&gt;</a>();</div>
+<div class="line"><a name="l00552"></a><span class="lineno">  552</span>&#160;  <a class="code" href="class_voca_engine.html#a97f53364148cce52e71effad64202321">dirty</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00553"></a><span class="lineno">  553</span>&#160;</div>
+<div class="line"><a name="l00554"></a><span class="lineno">  554</span>&#160;  <span class="keywordflow">while</span> (!i-&gt;eof() &amp;&amp; !i-&gt;bad() &amp;&amp; i-&gt;peek() != -1) {</div>
+<div class="line"><a name="l00555"></a><span class="lineno">  555</span>&#160;    <span class="keywordflow">if</span> (!loaded) <span class="comment">// flag on</span></div>
+<div class="line"><a name="l00556"></a><span class="lineno">  556</span>&#160;      loaded = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00557"></a><span class="lineno">  557</span>&#160;</div>
+<div class="line"><a name="l00558"></a><span class="lineno">  558</span>&#160;    <span class="comment">// fill out previous list</span></div>
+<div class="line"><a name="l00559"></a><span class="lineno">  559</span>&#160;    <span class="keywordtype">char</span> word[100];</div>
+<div class="line"><a name="l00560"></a><span class="lineno">  560</span>&#160;    <span class="keywordtype">char</span> mean[100];</div>
+<div class="line"><a name="l00561"></a><span class="lineno">  561</span>&#160;    <span class="keywordtype">char</span> explain[100];</div>
+<div class="line"><a name="l00562"></a><span class="lineno">  562</span>&#160;    <span class="keywordtype">char</span> exp_buf[100];</div>
+<div class="line"><a name="l00563"></a><span class="lineno">  563</span>&#160;    <span class="keywordtype">char</span> level_buf[100];</div>
+<div class="line"><a name="l00564"></a><span class="lineno">  564</span>&#160;    <span class="keywordtype">int</span> exp, level;</div>
+<div class="line"><a name="l00565"></a><span class="lineno">  565</span>&#160;</div>
+<div class="line"><a name="l00566"></a><span class="lineno">  566</span>&#160;    <span class="comment">// get word</span></div>
+<div class="line"><a name="l00567"></a><span class="lineno">  567</span>&#160;    <span class="keywordtype">int</span> index = 0;</div>
+<div class="line"><a name="l00568"></a><span class="lineno">  568</span>&#160;    <span class="keywordflow">while</span> (i-&gt;peek() != <span class="charliteral">&#39;%&#39;</span> &amp;&amp; i-&gt;peek() != <span class="charliteral">&#39;$&#39;</span> &amp;&amp; !i-&gt;eof() &amp;&amp; !i-&gt;bad())</div>
+<div class="line"><a name="l00569"></a><span class="lineno">  569</span>&#160;      word[index++] = i-&gt;get();</div>
+<div class="line"><a name="l00570"></a><span class="lineno">  570</span>&#160;    word[index] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><a name="l00571"></a><span class="lineno">  571</span>&#160;    </div>
+<div class="line"><a name="l00572"></a><span class="lineno">  572</span>&#160;    <span class="keywordflow">if</span> (i-&gt;peek() == <span class="charliteral">&#39;%&#39;</span>) {</div>
+<div class="line"><a name="l00573"></a><span class="lineno">  573</span>&#160;      i-&gt;get(); <span class="comment">// consume token</span></div>
+<div class="line"><a name="l00574"></a><span class="lineno">  574</span>&#160;    } <span class="keywordflow">else</span> { <span class="comment">// i-&gt;eof() || i-&gt;bad() || i-&gt;peek() == &#39;$&#39;</span></div>
+<div class="line"><a name="l00575"></a><span class="lineno">  575</span>&#160;      cout &lt;&lt; <span class="stringliteral">&quot;#    DATA FILE ERROR&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00576"></a><span class="lineno">  576</span>&#160;      exit(1);</div>
+<div class="line"><a name="l00577"></a><span class="lineno">  577</span>&#160;    }</div>
+<div class="line"><a name="l00578"></a><span class="lineno">  578</span>&#160;    </div>
+<div class="line"><a name="l00579"></a><span class="lineno">  579</span>&#160;    <span class="comment">// get mean</span></div>
+<div class="line"><a name="l00580"></a><span class="lineno">  580</span>&#160;    index = 0;</div>
+<div class="line"><a name="l00581"></a><span class="lineno">  581</span>&#160;    <span class="keywordflow">while</span> (i-&gt;peek() != <span class="charliteral">&#39;%&#39;</span> &amp;&amp; i-&gt;peek() != <span class="charliteral">&#39;$&#39;</span> &amp;&amp; !i-&gt;eof() &amp;&amp; !i-&gt;bad())</div>
+<div class="line"><a name="l00582"></a><span class="lineno">  582</span>&#160;      mean[index++] = i-&gt;get();</div>
+<div class="line"><a name="l00583"></a><span class="lineno">  583</span>&#160;    mean[index] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><a name="l00584"></a><span class="lineno">  584</span>&#160;    </div>
+<div class="line"><a name="l00585"></a><span class="lineno">  585</span>&#160;    <span class="keywordflow">if</span> (i-&gt;peek() == <span class="charliteral">&#39;%&#39;</span>) {</div>
+<div class="line"><a name="l00586"></a><span class="lineno">  586</span>&#160;      i-&gt;get(); <span class="comment">// consume token</span></div>
+<div class="line"><a name="l00587"></a><span class="lineno">  587</span>&#160;    } <span class="keywordflow">else</span> { <span class="comment">// i-&gt;eof() || i-&gt;bad() || i-&gt;peek() == &#39;$&#39;</span></div>
+<div class="line"><a name="l00588"></a><span class="lineno">  588</span>&#160;      cout &lt;&lt; <span class="stringliteral">&quot;#    DATA FILE ERROR&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00589"></a><span class="lineno">  589</span>&#160;      exit(1);</div>
+<div class="line"><a name="l00590"></a><span class="lineno">  590</span>&#160;    }</div>
+<div class="line"><a name="l00591"></a><span class="lineno">  591</span>&#160;</div>
+<div class="line"><a name="l00592"></a><span class="lineno">  592</span>&#160;    <span class="comment">// get explain</span></div>
+<div class="line"><a name="l00593"></a><span class="lineno">  593</span>&#160;    index = 0;</div>
+<div class="line"><a name="l00594"></a><span class="lineno">  594</span>&#160;    <span class="keywordflow">while</span> (i-&gt;peek() != <span class="charliteral">&#39;%&#39;</span> &amp;&amp; i-&gt;peek() != <span class="charliteral">&#39;$&#39;</span> &amp;&amp; !i-&gt;eof() &amp;&amp; !i-&gt;bad())</div>
+<div class="line"><a name="l00595"></a><span class="lineno">  595</span>&#160;      explain[index++] = i-&gt;get();</div>
+<div class="line"><a name="l00596"></a><span class="lineno">  596</span>&#160;    explain[index] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><a name="l00597"></a><span class="lineno">  597</span>&#160;    </div>
+<div class="line"><a name="l00598"></a><span class="lineno">  598</span>&#160;    <span class="keywordflow">if</span> (i-&gt;peek() == <span class="charliteral">&#39;%&#39;</span>) {</div>
+<div class="line"><a name="l00599"></a><span class="lineno">  599</span>&#160;      i-&gt;get(); <span class="comment">// consume token</span></div>
+<div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160;    } <span class="keywordflow">else</span> { <span class="comment">// i-&gt;eof() || i-&gt;bad() || i-&gt;peek() == &#39;$&#39;</span></div>
+<div class="line"><a name="l00601"></a><span class="lineno">  601</span>&#160;      cout &lt;&lt; <span class="stringliteral">&quot;#    DATA FILE ERROR&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;      exit(1);</div>
+<div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;    }</div>
+<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;</div>
+<div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160;    <span class="comment">// get exp</span></div>
+<div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160;    index = 0;</div>
+<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;    <span class="keywordflow">while</span> (i-&gt;peek() != <span class="charliteral">&#39;%&#39;</span> &amp;&amp; i-&gt;peek() != <span class="charliteral">&#39;$&#39;</span> &amp;&amp; !i-&gt;eof() &amp;&amp; !i-&gt;bad())</div>
+<div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;      exp_buf[index++] = i-&gt;get();</div>
+<div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;    exp_buf[index] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160;    exp = StrToInt(exp_buf);</div>
+<div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160;    </div>
+<div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160;    <span class="keywordflow">if</span> (i-&gt;peek() == <span class="charliteral">&#39;%&#39;</span>) {</div>
+<div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;      i-&gt;get(); <span class="comment">// consume token</span></div>
+<div class="line"><a name="l00614"></a><span class="lineno">  614</span>&#160;    } <span class="keywordflow">else</span> { <span class="comment">// i-&gt;eof() || i-&gt;bad() || i-&gt;peek() == &#39;$&#39;</span></div>
+<div class="line"><a name="l00615"></a><span class="lineno">  615</span>&#160;      cout &lt;&lt; <span class="stringliteral">&quot;#    DATA FILE ERROR&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00616"></a><span class="lineno">  616</span>&#160;      exit(1);</div>
+<div class="line"><a name="l00617"></a><span class="lineno">  617</span>&#160;    }</div>
+<div class="line"><a name="l00618"></a><span class="lineno">  618</span>&#160;</div>
+<div class="line"><a name="l00619"></a><span class="lineno">  619</span>&#160;    <span class="comment">// get level</span></div>
+<div class="line"><a name="l00620"></a><span class="lineno">  620</span>&#160;    index = 0;</div>
+<div class="line"><a name="l00621"></a><span class="lineno">  621</span>&#160;    <span class="keywordflow">while</span> (i-&gt;peek() != <span class="charliteral">&#39;%&#39;</span> &amp;&amp; i-&gt;peek() != <span class="charliteral">&#39;$&#39;</span> &amp;&amp; !i-&gt;eof() &amp;&amp; !i-&gt;bad())</div>
+<div class="line"><a name="l00622"></a><span class="lineno">  622</span>&#160;      level_buf[index++] = i-&gt;get();</div>
+<div class="line"><a name="l00623"></a><span class="lineno">  623</span>&#160;    level_buf[index] = <span class="charliteral">&#39;\0&#39;</span>;</div>
+<div class="line"><a name="l00624"></a><span class="lineno">  624</span>&#160;    level = StrToInt(level_buf);</div>
+<div class="line"><a name="l00625"></a><span class="lineno">  625</span>&#160;</div>
+<div class="line"><a name="l00626"></a><span class="lineno">  626</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>-&gt;<a class="code" href="class_list.html#ac8fff7396766358cee488223009ac578">addNode</a>(<span class="keyword">new</span> <a class="code" href="class_voca.html">Voca</a>(word, mean, explain, exp, level))) {</div>
+<div class="line"><a name="l00627"></a><span class="lineno">  627</span>&#160;      cout &lt;&lt; <span class="stringliteral">&quot;#    DATA GENERATING ERROR&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00628"></a><span class="lineno">  628</span>&#160;      exit(1);</div>
+<div class="line"><a name="l00629"></a><span class="lineno">  629</span>&#160;    }</div>
+<div class="line"><a name="l00630"></a><span class="lineno">  630</span>&#160;</div>
+<div class="line"><a name="l00631"></a><span class="lineno">  631</span>&#160;    <span class="keywordflow">if</span> (i-&gt;peek() == <span class="charliteral">&#39;$&#39;</span>) {</div>
+<div class="line"><a name="l00632"></a><span class="lineno">  632</span>&#160;      i-&gt;get(); <span class="comment">// consume token</span></div>
+<div class="line"><a name="l00633"></a><span class="lineno">  633</span>&#160;    } <span class="keywordflow">else</span> { <span class="comment">// i-&gt;eof() || i-&gt;bad() || i-&gt;peek() != &#39;%&#39;</span></div>
+<div class="line"><a name="l00634"></a><span class="lineno">  634</span>&#160;      cout &lt;&lt; <span class="stringliteral">&quot;#    DATA FILE ERROR&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00635"></a><span class="lineno">  635</span>&#160;      exit(1);</div>
+<div class="line"><a name="l00636"></a><span class="lineno">  636</span>&#160;    }</div>
+<div class="line"><a name="l00637"></a><span class="lineno">  637</span>&#160;</div>
+<div class="line"><a name="l00638"></a><span class="lineno">  638</span>&#160;    <span class="keywordflow">while</span> (isWhite(i-&gt;peek()))</div>
+<div class="line"><a name="l00639"></a><span class="lineno">  639</span>&#160;      i-&gt;get(); <span class="comment">// consume white space</span></div>
+<div class="line"><a name="l00640"></a><span class="lineno">  640</span>&#160;  }</div>
+<div class="line"><a name="l00641"></a><span class="lineno">  641</span>&#160;  <span class="keywordflow">if</span> (loaded)</div>
+<div class="line"><a name="l00642"></a><span class="lineno">  642</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#    DATA FILE LOADING COMPLETE&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00643"></a><span class="lineno">  643</span>&#160;  <span class="keywordflow">else</span> <span class="comment">// no prev data</span></div>
+<div class="line"><a name="l00644"></a><span class="lineno">  644</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#    CREATE NEW DATA FILE&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00645"></a><span class="lineno">  645</span>&#160;</div>
+<div class="line"><a name="l00646"></a><span class="lineno">  646</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00647"></a><span class="lineno">  647</span>&#160;}</div>
+<div class="ttc" id="class_voca_engine_html_a0e8a34d83bf357cd0a9148d155f7f4ba"><div class="ttname"><a href="class_voca_engine.html#a0e8a34d83bf357cd0a9148d155f7f4ba">VocaEngine::printTitle</a></div><div class="ttdeci">void printTitle(void)</div><div class="ttdoc">printing title to console </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8cpp_source.html#l00362">VocaMaster.cpp:362</a></div></div>
 <div class="ttc" id="class_list_html"><div class="ttname"><a href="class_list.html">List&lt; Voca * &gt;</a></div></div>
 <div class="ttc" id="class_list_html_ac8fff7396766358cee488223009ac578"><div class="ttname"><a href="class_list.html#ac8fff7396766358cee488223009ac578">List::addNode</a></div><div class="ttdeci">bool addNode(T content)</div><div class="ttdoc">add new list node which has a given content </div><div class="ttdef"><b>Definition:</b> <a href="list_8h_source.html#l00261">list.h:261</a></div></div>
 <div class="ttc" id="class_voca_engine_html_a2646d40c08456470c7dd545a8bf4bffb"><div class="ttname"><a href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">VocaEngine::list</a></div><div class="ttdeci">List&lt; Voca * &gt; * list</div><div class="ttdoc">Voca class list. </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8h_source.html#l00131">VocaMaster.h:131</a></div></div>
@@ -314,21 +314,21 @@ Private Attributes</h2></td></tr>
 <p>Saving automatically updated data into disk <br/>
  and delete all data in memory. </p>
 
-<p>Definition at line <a class="el" href="_voca_master_8cpp_source.html#l00640">640</a> of file <a class="el" href="_voca_master_8cpp_source.html">VocaMaster.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00641"></a><span class="lineno">  641</span>&#160;{</div>
-<div class="line"><a name="l00642"></a><span class="lineno">  642</span>&#160;  <span class="keywordflow">if</span>(<a class="code" href="class_voca_engine.html#a4ce3abffbc4a6dd08f7b87ba090d97a0">saveChange</a>())</div>
-<div class="line"><a name="l00643"></a><span class="lineno">  643</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#    SAVE DATA...&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00644"></a><span class="lineno">  644</span>&#160;  <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00645"></a><span class="lineno">  645</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#    NO UPDATE&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00646"></a><span class="lineno">  646</span>&#160;</div>
-<div class="line"><a name="l00647"></a><span class="lineno">  647</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>)</div>
-<div class="line"><a name="l00648"></a><span class="lineno">  648</span>&#160;    <span class="keyword">delete</span>(<a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>);</div>
-<div class="line"><a name="l00649"></a><span class="lineno">  649</span>&#160;</div>
-<div class="line"><a name="l00650"></a><span class="lineno">  650</span>&#160;  <a class="code" href="class_voca_engine.html#aeab70a128151405730fa2a80851f0291">printEnd</a>();</div>
-<div class="line"><a name="l00651"></a><span class="lineno">  651</span>&#160;}</div>
-<div class="ttc" id="class_voca_engine_html_a4ce3abffbc4a6dd08f7b87ba090d97a0"><div class="ttname"><a href="class_voca_engine.html#a4ce3abffbc4a6dd08f7b87ba090d97a0">VocaEngine::saveChange</a></div><div class="ttdeci">bool saveChange(void)</div><div class="ttdoc">saving updated data </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8cpp_source.html#l00264">VocaMaster.cpp:264</a></div></div>
+<p>Definition at line <a class="el" href="_voca_master_8cpp_source.html#l00649">649</a> of file <a class="el" href="_voca_master_8cpp_source.html">VocaMaster.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00650"></a><span class="lineno">  650</span>&#160;{</div>
+<div class="line"><a name="l00651"></a><span class="lineno">  651</span>&#160;  <span class="keywordflow">if</span>(<a class="code" href="class_voca_engine.html#a4ce3abffbc4a6dd08f7b87ba090d97a0">saveChange</a>())</div>
+<div class="line"><a name="l00652"></a><span class="lineno">  652</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#    SAVE DATA...&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00653"></a><span class="lineno">  653</span>&#160;  <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00654"></a><span class="lineno">  654</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#    NO UPDATE&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00655"></a><span class="lineno">  655</span>&#160;</div>
+<div class="line"><a name="l00656"></a><span class="lineno">  656</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>)</div>
+<div class="line"><a name="l00657"></a><span class="lineno">  657</span>&#160;    <span class="keyword">delete</span>(<a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>);</div>
+<div class="line"><a name="l00658"></a><span class="lineno">  658</span>&#160;</div>
+<div class="line"><a name="l00659"></a><span class="lineno">  659</span>&#160;  <a class="code" href="class_voca_engine.html#aeab70a128151405730fa2a80851f0291">printEnd</a>();</div>
+<div class="line"><a name="l00660"></a><span class="lineno">  660</span>&#160;}</div>
+<div class="ttc" id="class_voca_engine_html_a4ce3abffbc4a6dd08f7b87ba090d97a0"><div class="ttname"><a href="class_voca_engine.html#a4ce3abffbc4a6dd08f7b87ba090d97a0">VocaEngine::saveChange</a></div><div class="ttdeci">bool saveChange(void)</div><div class="ttdoc">saving updated data </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8cpp_source.html#l00268">VocaMaster.cpp:268</a></div></div>
 <div class="ttc" id="class_voca_engine_html_a2646d40c08456470c7dd545a8bf4bffb"><div class="ttname"><a href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">VocaEngine::list</a></div><div class="ttdeci">List&lt; Voca * &gt; * list</div><div class="ttdoc">Voca class list. </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8h_source.html#l00131">VocaMaster.h:131</a></div></div>
-<div class="ttc" id="class_voca_engine_html_aeab70a128151405730fa2a80851f0291"><div class="ttname"><a href="class_voca_engine.html#aeab70a128151405730fa2a80851f0291">VocaEngine::printEnd</a></div><div class="ttdeci">void printEnd(void)</div><div class="ttdoc">printing ending to console </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8cpp_source.html#l00361">VocaMaster.cpp:361</a></div></div>
+<div class="ttc" id="class_voca_engine_html_aeab70a128151405730fa2a80851f0291"><div class="ttname"><a href="class_voca_engine.html#aeab70a128151405730fa2a80851f0291">VocaEngine::printEnd</a></div><div class="ttdeci">void printEnd(void)</div><div class="ttdoc">printing ending to console </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8cpp_source.html#l00370">VocaMaster.cpp:370</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -388,14 +388,18 @@ Private Attributes</h2></td></tr>
 <div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
 <div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;</div>
 <div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>-&gt;<a class="code" href="class_list.html#ac8fff7396766358cee488223009ac578">addNode</a>(<span class="keyword">new</span> <a class="code" href="class_voca.html">Voca</a>(word, mean, explain, 0, 1))) {</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="class_voca_engine.html#a97f53364148cce52e71effad64202321">dirty</a>)</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;      <a class="code" href="class_voca_engine.html#a97f53364148cce52e71effad64202321">dirty</a> = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;  }</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;}</div>
-<div class="ttc" id="class_voca_engine_html_a4c936c7df30791dee80573411cba9478"><div class="ttname"><a href="class_voca_engine.html#a4c936c7df30791dee80573411cba9478">VocaEngine::dupCheck</a></div><div class="ttdeci">bool dupCheck(char *str)</div><div class="ttdoc">duplicated checking </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8cpp_source.html#l00337">VocaMaster.cpp:337</a></div></div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#    [&quot;</span> &lt;&lt; word &lt;&lt; <span class="stringliteral">&quot; - &quot;</span> &lt;&lt; mean &lt;&lt; <span class="stringliteral">&quot; - &quot;</span> &lt;&lt; explain</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;         &lt;&lt; <span class="stringliteral">&quot;] ADDED!!&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="class_voca_engine.html#a97f53364148cce52e71effad64202321">dirty</a>)</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;      <a class="code" href="class_voca_engine.html#a97f53364148cce52e71effad64202321">dirty</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;  }</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;}</div>
+<div class="ttc" id="class_voca_engine_html_a4c936c7df30791dee80573411cba9478"><div class="ttname"><a href="class_voca_engine.html#a4c936c7df30791dee80573411cba9478">VocaEngine::dupCheck</a></div><div class="ttdeci">bool dupCheck(char *str)</div><div class="ttdoc">duplicated checking </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8cpp_source.html#l00346">VocaMaster.cpp:346</a></div></div>
 <div class="ttc" id="class_list_html_ac8fff7396766358cee488223009ac578"><div class="ttname"><a href="class_list.html#ac8fff7396766358cee488223009ac578">List::addNode</a></div><div class="ttdeci">bool addNode(T content)</div><div class="ttdoc">add new list node which has a given content </div><div class="ttdef"><b>Definition:</b> <a href="list_8h_source.html#l00261">list.h:261</a></div></div>
 <div class="ttc" id="class_voca_engine_html_a2646d40c08456470c7dd545a8bf4bffb"><div class="ttname"><a href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">VocaEngine::list</a></div><div class="ttdeci">List&lt; Voca * &gt; * list</div><div class="ttdoc">Voca class list. </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8h_source.html#l00131">VocaMaster.h:131</a></div></div>
 <div class="ttc" id="class_voca_engine_html_a97f53364148cce52e71effad64202321"><div class="ttname"><a href="class_voca_engine.html#a97f53364148cce52e71effad64202321">VocaEngine::dirty</a></div><div class="ttdeci">bool dirty</div><div class="ttdoc">dirty bit which means an update exists </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8h_source.html#l00132">VocaMaster.h:132</a></div></div>
@@ -434,17 +438,17 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="_voca_master_8cpp_source.html#l00337">337</a> of file <a class="el" href="_voca_master_8cpp_source.html">VocaMaster.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;                                   {</div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;  <span class="keywordtype">char</span> *tmp = <span class="keyword">new</span> <span class="keywordtype">char</span>[<span class="keyword">sizeof</span>(char) * Strlen(str) + 1];</div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;  Strcpy(tmp, str);</div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;  </div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;  <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>-&gt;<a class="code" href="class_list.html#a4d8d3acaf718d470e1084814a6155814">getSize</a>(); i++)</div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;    <span class="keywordflow">if</span> (Strequal(<a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>-&gt;<a class="code" href="class_list.html#aa93404b4c7f3f86a560a0a675f55c9bd">getContent</a>(i)-&gt;<a class="code" href="class_voca.html#a7704be52df8c678aedec150fe8ef1584">getWord</a>(), tmp))</div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;      <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;</div>
-<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;}</div>
+<p>Definition at line <a class="el" href="_voca_master_8cpp_source.html#l00346">346</a> of file <a class="el" href="_voca_master_8cpp_source.html">VocaMaster.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;                                   {</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;  <span class="keywordtype">char</span> *tmp = <span class="keyword">new</span> <span class="keywordtype">char</span>[<span class="keyword">sizeof</span>(char) * Strlen(str) + 1];</div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;  Strcpy(tmp, str);</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;  </div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;  <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>-&gt;<a class="code" href="class_list.html#a4d8d3acaf718d470e1084814a6155814">getSize</a>(); i++)</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;    <span class="keywordflow">if</span> (Strequal(<a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>-&gt;<a class="code" href="class_list.html#aa93404b4c7f3f86a560a0a675f55c9bd">getContent</a>(i)-&gt;<a class="code" href="class_voca.html#a7704be52df8c678aedec150fe8ef1584">getWord</a>(), tmp))</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;      <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;}</div>
 <div class="ttc" id="class_voca_html_a7704be52df8c678aedec150fe8ef1584"><div class="ttname"><a href="class_voca.html#a7704be52df8c678aedec150fe8ef1584">Voca::getWord</a></div><div class="ttdeci">char * getWord(void)</div><div class="ttdoc">getting word string </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8cpp_source.html#l00171">VocaMaster.cpp:171</a></div></div>
 <div class="ttc" id="class_voca_engine_html_a2646d40c08456470c7dd545a8bf4bffb"><div class="ttname"><a href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">VocaEngine::list</a></div><div class="ttdeci">List&lt; Voca * &gt; * list</div><div class="ttdoc">Voca class list. </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8h_source.html#l00131">VocaMaster.h:131</a></div></div>
 <div class="ttc" id="class_list_html_a4d8d3acaf718d470e1084814a6155814"><div class="ttname"><a href="class_list.html#a4d8d3acaf718d470e1084814a6155814">List::getSize</a></div><div class="ttdeci">unsigned int getSize(void) const </div><div class="ttdoc">return the number of nodes which the list has </div><div class="ttdef"><b>Definition:</b> <a href="list_8h_source.html#l00248">list.h:248</a></div></div>
@@ -483,16 +487,16 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="_voca_master_8cpp_source.html#l00253">253</a> of file <a class="el" href="_voca_master_8cpp_source.html">VocaMaster.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;{</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>)</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    <span class="keyword">delete</span>(<a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>);</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;  </div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;  <a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a> = <span class="keyword">new</span> <a class="code" href="class_list.html">List &lt;Voca*&gt;</a>();</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;  </div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="class_voca_engine.html#a97f53364148cce52e71effad64202321">dirty</a>)</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;    <a class="code" href="class_voca_engine.html#a97f53364148cce52e71effad64202321">dirty</a> = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;}</div>
+<p>Definition at line <a class="el" href="_voca_master_8cpp_source.html#l00257">257</a> of file <a class="el" href="_voca_master_8cpp_source.html">VocaMaster.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;{</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>)</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    <span class="keyword">delete</span>(<a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>);</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;  </div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;  <a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a> = <span class="keyword">new</span> <a class="code" href="class_list.html">List &lt;Voca*&gt;</a>();</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;  </div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="class_voca_engine.html#a97f53364148cce52e71effad64202321">dirty</a>)</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;    <a class="code" href="class_voca_engine.html#a97f53364148cce52e71effad64202321">dirty</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;}</div>
 <div class="ttc" id="class_list_html"><div class="ttname"><a href="class_list.html">List&lt; Voca * &gt;</a></div></div>
 <div class="ttc" id="class_voca_engine_html_a2646d40c08456470c7dd545a8bf4bffb"><div class="ttname"><a href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">VocaEngine::list</a></div><div class="ttdeci">List&lt; Voca * &gt; * list</div><div class="ttdoc">Voca class list. </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8h_source.html#l00131">VocaMaster.h:131</a></div></div>
 <div class="ttc" id="class_voca_engine_html_a97f53364148cce52e71effad64202321"><div class="ttname"><a href="class_voca_engine.html#a97f53364148cce52e71effad64202321">VocaEngine::dirty</a></div><div class="ttdeci">bool dirty</div><div class="ttdoc">dirty bit which means an update exists </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8h_source.html#l00132">VocaMaster.h:132</a></div></div>
@@ -530,16 +534,16 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="_voca_master_8cpp_source.html#l00327">327</a> of file <a class="el" href="_voca_master_8cpp_source.html">VocaMaster.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;                                        {</div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;  srand(time(0));</div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;  <span class="keywordtype">int</span> coefficient = (rand() % voca-&gt;<a class="code" href="class_voca.html#a789004b717875cd53294abc46af84c17">MAX_LEVEL</a>) + 1; <span class="comment">// 1 ~ MAX_LEVEL</span></div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;  </div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;  <span class="keywordflow">if</span> ((voca-&gt;<a class="code" href="class_voca.html#a815acf8f5e8ab1d844932a25f35b7753">getLevel</a>() - coefficient) &lt;= 0)</div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>; <span class="comment">// means select</span></div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;  <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>; <span class="comment">// means unselect</span></div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;}</div>
+<p>Definition at line <a class="el" href="_voca_master_8cpp_source.html#l00336">336</a> of file <a class="el" href="_voca_master_8cpp_source.html">VocaMaster.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;                                        {</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;  srand(time(0));</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;  <span class="keywordtype">int</span> coefficient = (rand() % voca-&gt;<a class="code" href="class_voca.html#a789004b717875cd53294abc46af84c17">MAX_LEVEL</a>) + 1; <span class="comment">// 1 ~ MAX_LEVEL</span></div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;  </div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;  <span class="keywordflow">if</span> ((voca-&gt;<a class="code" href="class_voca.html#a815acf8f5e8ab1d844932a25f35b7753">getLevel</a>() - coefficient) &lt;= 0)</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>; <span class="comment">// means select</span></div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;  <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>; <span class="comment">// means unselect</span></div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;}</div>
 <div class="ttc" id="class_voca_html_a815acf8f5e8ab1d844932a25f35b7753"><div class="ttname"><a href="class_voca.html#a815acf8f5e8ab1d844932a25f35b7753">Voca::getLevel</a></div><div class="ttdeci">int getLevel(void)</div><div class="ttdoc">getting level point </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8cpp_source.html#l00187">VocaMaster.cpp:187</a></div></div>
 <div class="ttc" id="class_voca_html_a789004b717875cd53294abc46af84c17"><div class="ttname"><a href="class_voca.html#a789004b717875cd53294abc46af84c17">Voca::MAX_LEVEL</a></div><div class="ttdeci">static const int MAX_LEVEL</div><div class="ttdoc">Maximum level range. </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8h_source.html#l00048">VocaMaster.h:48</a></div></div>
 </div><!-- fragment -->
@@ -575,115 +579,115 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="_voca_master_8cpp_source.html#l00366">366</a> of file <a class="el" href="_voca_master_8cpp_source.html">VocaMaster.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;                                     {</div>
-<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;  <span class="keywordtype">int</span> tag = 1; <span class="comment">// new index</span></div>
-<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;  <a class="code" href="class_list_node.html">ListNode &lt;Voca*&gt;</a> *cur = <a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>-&gt;<a class="code" href="class_list.html#a5aaa131805b461db4664a5dc7a28d7a9">getNode</a>(index);</div>
-<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;  <span class="keywordtype">bool</span> hasPrev = (index != 0) ? <span class="keyword">true</span> : <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;  <span class="keywordtype">bool</span> hasNext = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160; </div>
-<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;  <span class="keywordflow">if</span> (!cur) { <span class="comment">// empty list</span></div>
-<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#             EMPTY LIST&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;    <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;  }</div>
-<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;</div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#               [ LIST ]&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;  <span class="keywordflow">while</span> (cur != <a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>-&gt;<a class="code" href="class_list.html#ac9a6fc5576665cb954e83e322f7fe6ed">getHead</a>() &amp;&amp; tag &lt;= 10) {</div>
-<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;    <a class="code" href="class_voca.html">Voca</a> *curVoca = cur-&gt;<a class="code" href="class_list_node.html#a53d6da0c514950a40956955bc1e383ab">getContent</a>();</div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#    [&quot;</span> &lt;&lt; tag++ &lt;&lt; <span class="stringliteral">&quot;] &quot;</span>;</div>
-<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;    cout &lt;&lt; curVoca-&gt;<a class="code" href="class_voca.html#a7704be52df8c678aedec150fe8ef1584">getWord</a>() &lt;&lt; <span class="stringliteral">&quot; - &quot;</span> &lt;&lt; curVoca-&gt;<a class="code" href="class_voca.html#a23880acf1d00fbf527f2af84d0738476">getMean</a>() &lt;&lt; endl;</div>
-<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;    cur = cur-&gt;<a class="code" href="class_list_node.html#a35941e2759ff02e220815f806d0f7858">getNext</a>();</div>
-<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;  }</div>
-<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;  </div>
-<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;  <span class="keywordflow">if</span> (cur != <a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>-&gt;<a class="code" href="class_list.html#ac9a6fc5576665cb954e83e322f7fe6ed">getHead</a>() &amp;&amp; tag == 11)</div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;    hasNext = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;</div>
-<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#             [ LIST MENU ]&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#    (1) DELETE&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#    (2) INITIALIZATION&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#    (3) CANCEL&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;  <span class="keywordflow">if</span> (hasPrev &amp;&amp; hasNext) {</div>
-<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#    (4) &lt;=&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#    (5) =&gt;&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (hasPrev) {</div>
-<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#    (4) &lt;=&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (hasNext) {</div>
-<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#    (4) =&gt;&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;  }</div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;</div>
-<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#    SELECT : &quot;</span>;</div>
-<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;  <span class="keywordtype">char</span> input[100];</div>
-<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;  cin &gt;&gt; input;</div>
-<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;</div>
-<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;  <span class="keywordflow">if</span> (input[0] &lt; <span class="charliteral">&#39;1&#39;</span> || input[0] &gt; <span class="charliteral">&#39;3&#39;</span>) {</div>
-<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;    <span class="keywordflow">if</span> (!hasPrev &amp;&amp; !hasNext) {</div>
-<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;      cout &lt;&lt; <span class="stringliteral">&quot;#    ERROR : WRONG INPUT&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;      cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;      <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;    }</div>
-<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (input[0] == <span class="charliteral">&#39;5&#39;</span> &amp;&amp; (!hasPrev || !hasNext)) {</div>
-<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;      cout &lt;&lt; <span class="stringliteral">&quot;#    ERROR : WRONG INPUT&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;      cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;      <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;    }</div>
-<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;  }</div>
-<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;</div>
-<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;  <span class="keywordflow">switch</span>(input[0]) {</div>
-<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;    <span class="keywordflow">case</span> <span class="charliteral">&#39;1&#39;</span>:</div>
-<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;      <span class="keywordtype">int</span> choice;</div>
-<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;      cout &lt;&lt; <span class="stringliteral">&quot;#    SELECT INDEX [NUMBER] : &quot;</span>;</div>
-<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;      cin &gt;&gt; choice;</div>
-<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;      <span class="keywordflow">if</span> (choice &lt; 1 || choice &gt; tag-1) {</div>
-<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;#    ERROR : WRONG INDEX&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;      } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;        <a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>-&gt;<a class="code" href="class_list.html#af4e9e7db2b56cd948ec225445f3250da">delNode</a>(index + choice - 1);</div>
-<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;        </div>
-<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;        <span class="keywordflow">if</span> (!<a class="code" href="class_voca_engine.html#a97f53364148cce52e71effad64202321">dirty</a>)</div>
-<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;          <a class="code" href="class_voca_engine.html#a97f53364148cce52e71effad64202321">dirty</a> = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;</div>
-<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;#    DATA DELETE&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;      }</div>
-<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;      <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;    <span class="keywordflow">case</span> <span class="charliteral">&#39;2&#39;</span>:</div>
-<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;      <span class="keywordtype">char</span> answer[100];</div>
-<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;      cout &lt;&lt; <span class="stringliteral">&quot;#    Are you sure ? (y,N) : &quot;</span>;</div>
-<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;      cin &gt;&gt; answer;</div>
+<p>Definition at line <a class="el" href="_voca_master_8cpp_source.html#l00375">375</a> of file <a class="el" href="_voca_master_8cpp_source.html">VocaMaster.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;                                     {</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;  <span class="keywordtype">int</span> tag = 1; <span class="comment">// new index</span></div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;  <a class="code" href="class_list_node.html">ListNode &lt;Voca*&gt;</a> *cur = <a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>-&gt;<a class="code" href="class_list.html#a5aaa131805b461db4664a5dc7a28d7a9">getNode</a>(index);</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;  <span class="keywordtype">bool</span> hasPrev = (index != 0) ? <span class="keyword">true</span> : <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;  <span class="keywordtype">bool</span> hasNext = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160; </div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;  <span class="keywordflow">if</span> (!cur) { <span class="comment">// empty list</span></div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#             EMPTY LIST&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;  }</div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;</div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#               [ LIST ]&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;  <span class="keywordflow">while</span> (cur != <a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>-&gt;<a class="code" href="class_list.html#ac9a6fc5576665cb954e83e322f7fe6ed">getHead</a>() &amp;&amp; tag &lt;= 10) {</div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;    <a class="code" href="class_voca.html">Voca</a> *curVoca = cur-&gt;<a class="code" href="class_list_node.html#a53d6da0c514950a40956955bc1e383ab">getContent</a>();</div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#    [&quot;</span> &lt;&lt; tag++ &lt;&lt; <span class="stringliteral">&quot;] &quot;</span>;</div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;    cout &lt;&lt; curVoca-&gt;<a class="code" href="class_voca.html#a7704be52df8c678aedec150fe8ef1584">getWord</a>() &lt;&lt; <span class="stringliteral">&quot; - &quot;</span> &lt;&lt; curVoca-&gt;<a class="code" href="class_voca.html#a23880acf1d00fbf527f2af84d0738476">getMean</a>() &lt;&lt; endl;</div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;    cur = cur-&gt;<a class="code" href="class_list_node.html#a35941e2759ff02e220815f806d0f7858">getNext</a>();</div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;  }</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;  </div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;  <span class="keywordflow">if</span> (cur != <a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>-&gt;<a class="code" href="class_list.html#ac9a6fc5576665cb954e83e322f7fe6ed">getHead</a>() &amp;&amp; tag == 11)</div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;    hasNext = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;</div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#             [ LIST MENU ]&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#    (1) DELETE&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#    (2) INITIALIZATION&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#    (3) CANCEL&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;  <span class="keywordflow">if</span> (hasPrev &amp;&amp; hasNext) {</div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#    (4) &lt;=&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#    (5) =&gt;&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (hasPrev) {</div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#    (4) &lt;=&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (hasNext) {</div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#    (4) =&gt;&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;  }</div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;</div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#    SELECT : &quot;</span>;</div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;  <span class="keywordtype">char</span> input[100];</div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;  cin &gt;&gt; input;</div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;</div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;  <span class="keywordflow">if</span> (input[0] &lt; <span class="charliteral">&#39;1&#39;</span> || input[0] &gt; <span class="charliteral">&#39;3&#39;</span>) {</div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;    <span class="keywordflow">if</span> (!hasPrev &amp;&amp; !hasNext) {</div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;      cout &lt;&lt; <span class="stringliteral">&quot;#    ERROR : WRONG INPUT&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;      cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;      <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;    }</div>
+<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (input[0] == <span class="charliteral">&#39;5&#39;</span> &amp;&amp; (!hasPrev || !hasNext)) {</div>
+<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;      cout &lt;&lt; <span class="stringliteral">&quot;#    ERROR : WRONG INPUT&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;      cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;      <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;    }</div>
+<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;  }</div>
+<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;</div>
+<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;  <span class="keywordflow">switch</span>(input[0]) {</div>
+<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;    <span class="keywordflow">case</span> <span class="charliteral">&#39;1&#39;</span>:</div>
+<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;      <span class="keywordtype">int</span> choice;</div>
+<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;      cout &lt;&lt; <span class="stringliteral">&quot;#    SELECT INDEX [NUMBER] : &quot;</span>;</div>
+<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;      cin &gt;&gt; choice;</div>
+<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;      <span class="keywordflow">if</span> (choice &lt; 1 || choice &gt; tag-1) {</div>
+<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;#    ERROR : WRONG INDEX&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;      } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;        <a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>-&gt;<a class="code" href="class_list.html#af4e9e7db2b56cd948ec225445f3250da">delNode</a>(index + choice - 1);</div>
+<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;        </div>
+<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;        <span class="keywordflow">if</span> (!<a class="code" href="class_voca_engine.html#a97f53364148cce52e71effad64202321">dirty</a>)</div>
+<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;          <a class="code" href="class_voca_engine.html#a97f53364148cce52e71effad64202321">dirty</a> = <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;</div>
-<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;      <span class="keywordflow">if</span> (answer[0] == <span class="charliteral">&#39;Y&#39;</span> || answer[0] == <span class="charliteral">&#39;y&#39;</span>) {</div>
-<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;#    LIST INITIIALIZATION&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;        <a class="code" href="class_voca_engine.html#af496c338666a87bf601f73102177a6f7">initList</a>();</div>
-<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;      }</div>
-<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;      <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;    <span class="keywordflow">case</span> <span class="charliteral">&#39;3&#39;</span>:</div>
-<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;      cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;      <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;    <span class="keywordflow">case</span> <span class="charliteral">&#39;4&#39;</span>:</div>
-<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;      cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;      <span class="keywordflow">if</span> (!hasPrev)</div>
-<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;        <a class="code" href="class_voca_engine.html#acd826d40b097a19251f144ab4a000b5a">manageList</a>(index + 10);</div>
-<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;      <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;        <a class="code" href="class_voca_engine.html#acd826d40b097a19251f144ab4a000b5a">manageList</a>(index - 10);</div>
-<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;      <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;    <span class="keywordflow">case</span> <span class="charliteral">&#39;5&#39;</span>:</div>
-<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;      cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;      <a class="code" href="class_voca_engine.html#acd826d40b097a19251f144ab4a000b5a">manageList</a>(index + 10);</div>
-<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;      <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;  }</div>
-<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;}</div>
-<div class="ttc" id="class_voca_engine_html_acd826d40b097a19251f144ab4a000b5a"><div class="ttname"><a href="class_voca_engine.html#acd826d40b097a19251f144ab4a000b5a">VocaEngine::manageList</a></div><div class="ttdeci">void manageList(int index)</div><div class="ttdoc">managing list menu </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8cpp_source.html#l00366">VocaMaster.cpp:366</a></div></div>
+<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;#    DATA DELETE&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;      }</div>
+<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;      <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;    <span class="keywordflow">case</span> <span class="charliteral">&#39;2&#39;</span>:</div>
+<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;      <span class="keywordtype">char</span> answer[100];</div>
+<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;      cout &lt;&lt; <span class="stringliteral">&quot;#    Are you sure ? (y,N) : &quot;</span>;</div>
+<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;      cin &gt;&gt; answer;</div>
+<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;</div>
+<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;      <span class="keywordflow">if</span> (answer[0] == <span class="charliteral">&#39;Y&#39;</span> || answer[0] == <span class="charliteral">&#39;y&#39;</span>) {</div>
+<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;#    LIST INITIIALIZATION&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;        <a class="code" href="class_voca_engine.html#af496c338666a87bf601f73102177a6f7">initList</a>();</div>
+<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;      }</div>
+<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;      <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;    <span class="keywordflow">case</span> <span class="charliteral">&#39;3&#39;</span>:</div>
+<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;      cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;      <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;    <span class="keywordflow">case</span> <span class="charliteral">&#39;4&#39;</span>:</div>
+<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;      cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;      <span class="keywordflow">if</span> (!hasPrev)</div>
+<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;        <a class="code" href="class_voca_engine.html#acd826d40b097a19251f144ab4a000b5a">manageList</a>(index + 10);</div>
+<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;      <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;        <a class="code" href="class_voca_engine.html#acd826d40b097a19251f144ab4a000b5a">manageList</a>(index - 10);</div>
+<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;      <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;    <span class="keywordflow">case</span> <span class="charliteral">&#39;5&#39;</span>:</div>
+<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;      cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;      <a class="code" href="class_voca_engine.html#acd826d40b097a19251f144ab4a000b5a">manageList</a>(index + 10);</div>
+<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;      <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;  }</div>
+<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;}</div>
+<div class="ttc" id="class_voca_engine_html_acd826d40b097a19251f144ab4a000b5a"><div class="ttname"><a href="class_voca_engine.html#acd826d40b097a19251f144ab4a000b5a">VocaEngine::manageList</a></div><div class="ttdeci">void manageList(int index)</div><div class="ttdoc">managing list menu </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8cpp_source.html#l00375">VocaMaster.cpp:375</a></div></div>
 <div class="ttc" id="class_list_node_html_a53d6da0c514950a40956955bc1e383ab"><div class="ttname"><a href="class_list_node.html#a53d6da0c514950a40956955bc1e383ab">ListNode::getContent</a></div><div class="ttdeci">T getContent(void) const </div><div class="ttdoc">getting content </div><div class="ttdef"><b>Definition:</b> <a href="list_8h_source.html#l00103">list.h:103</a></div></div>
 <div class="ttc" id="class_list_node_html"><div class="ttname"><a href="class_list_node.html">ListNode&lt; Voca * &gt;</a></div></div>
 <div class="ttc" id="class_voca_html_a7704be52df8c678aedec150fe8ef1584"><div class="ttname"><a href="class_voca.html#a7704be52df8c678aedec150fe8ef1584">Voca::getWord</a></div><div class="ttdeci">char * getWord(void)</div><div class="ttdoc">getting word string </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8cpp_source.html#l00171">VocaMaster.cpp:171</a></div></div>
 <div class="ttc" id="class_list_html_a5aaa131805b461db4664a5dc7a28d7a9"><div class="ttname"><a href="class_list.html#a5aaa131805b461db4664a5dc7a28d7a9">List::getNode</a></div><div class="ttdeci">ListNode&lt; T &gt; * getNode(unsigned int index) const </div><div class="ttdoc">return node which have a given index </div><div class="ttdef"><b>Definition:</b> <a href="list_8h_source.html#l00219">list.h:219</a></div></div>
-<div class="ttc" id="class_voca_engine_html_af496c338666a87bf601f73102177a6f7"><div class="ttname"><a href="class_voca_engine.html#af496c338666a87bf601f73102177a6f7">VocaEngine::initList</a></div><div class="ttdeci">bool initList(void)</div><div class="ttdoc">initializing vocabulary list </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8cpp_source.html#l00253">VocaMaster.cpp:253</a></div></div>
+<div class="ttc" id="class_voca_engine_html_af496c338666a87bf601f73102177a6f7"><div class="ttname"><a href="class_voca_engine.html#af496c338666a87bf601f73102177a6f7">VocaEngine::initList</a></div><div class="ttdeci">bool initList(void)</div><div class="ttdoc">initializing vocabulary list </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8cpp_source.html#l00257">VocaMaster.cpp:257</a></div></div>
 <div class="ttc" id="class_voca_html_a23880acf1d00fbf527f2af84d0738476"><div class="ttname"><a href="class_voca.html#a23880acf1d00fbf527f2af84d0738476">Voca::getMean</a></div><div class="ttdeci">char * getMean(void)</div><div class="ttdoc">getting meaning string </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8cpp_source.html#l00175">VocaMaster.cpp:175</a></div></div>
 <div class="ttc" id="class_list_html_af4e9e7db2b56cd948ec225445f3250da"><div class="ttname"><a href="class_list.html#af4e9e7db2b56cd948ec225445f3250da">List::delNode</a></div><div class="ttdeci">bool delNode(unsigned int index)</div><div class="ttdoc">delete target list node which has a given index </div><div class="ttdef"><b>Definition:</b> <a href="list_8h_source.html#l00284">list.h:284</a></div></div>
 <div class="ttc" id="class_list_node_html_a35941e2759ff02e220815f806d0f7858"><div class="ttname"><a href="class_list_node.html#a35941e2759ff02e220815f806d0f7858">ListNode::getNext</a></div><div class="ttdeci">ListNode&lt; T &gt; * getNext(void) const </div><div class="ttdoc">getting next node </div><div class="ttdef"><b>Definition:</b> <a href="list_8h_source.html#l00095">list.h:95</a></div></div>
@@ -718,11 +722,11 @@ Private Attributes</h2></td></tr>
 
 <p>printing ending to console </p>
 
-<p>Definition at line <a class="el" href="_voca_master_8cpp_source.html#l00361">361</a> of file <a class="el" href="_voca_master_8cpp_source.html">VocaMaster.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;                              {</div>
-<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#######################################################&quot;</span> &lt;&lt; endl; <span class="comment">// 50 sharps</span></div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;}</div>
+<p>Definition at line <a class="el" href="_voca_master_8cpp_source.html#l00370">370</a> of file <a class="el" href="_voca_master_8cpp_source.html">VocaMaster.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;                              {</div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#######################################################&quot;</span> &lt;&lt; endl; <span class="comment">// 50 sharps</span></div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -751,14 +755,14 @@ Private Attributes</h2></td></tr>
 <p>printing title to console </p>
 <p><a class="el" href="class_voca_engine.html" title="Vocabulary Master Program Engine Class. ">VocaEngine</a> class private abstract functions implementation. </p>
 
-<p>Definition at line <a class="el" href="_voca_master_8cpp_source.html#l00353">353</a> of file <a class="el" href="_voca_master_8cpp_source.html">VocaMaster.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;                                {</div>
-<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#######################################################&quot;</span> &lt;&lt; endl; <span class="comment">// 50 sharps</span></div>
-<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#                     VOCAMASTER&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#                       v.&quot;</span> &lt;&lt; <a class="code" href="_voca_master_8cpp.html#a1c6d5de492ac61ad29aec7aa9a436bbf">VERSION</a> &lt;&lt; endl;</div>
-<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#                  made by Suwon Oh&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;  </div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;}</div>
+<p>Definition at line <a class="el" href="_voca_master_8cpp_source.html#l00362">362</a> of file <a class="el" href="_voca_master_8cpp_source.html">VocaMaster.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;                                {</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#######################################################&quot;</span> &lt;&lt; endl; <span class="comment">// 50 sharps</span></div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#                     VOCAMASTER&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#                       v.&quot;</span> &lt;&lt; <a class="code" href="_voca_master_8cpp.html#a1c6d5de492ac61ad29aec7aa9a436bbf">VERSION</a> &lt;&lt; endl;</div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#                  made by Suwon Oh&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;  </div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;}</div>
 <div class="ttc" id="_voca_master_8cpp_html_a1c6d5de492ac61ad29aec7aa9a436bbf"><div class="ttname"><a href="_voca_master_8cpp.html#a1c6d5de492ac61ad29aec7aa9a436bbf">VERSION</a></div><div class="ttdeci">#define VERSION</div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8cpp_source.html#l00023">VocaMaster.cpp:23</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -787,54 +791,54 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="_voca_master_8cpp_source.html#l00668">668</a> of file <a class="el" href="_voca_master_8cpp_source.html">VocaMaster.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00669"></a><span class="lineno">  669</span>&#160;{</div>
-<div class="line"><a name="l00670"></a><span class="lineno">  670</span>&#160;  <span class="keywordtype">bool</span> good = <span class="keyword">true</span>; <span class="comment">// ret val</span></div>
-<div class="line"><a name="l00671"></a><span class="lineno">  671</span>&#160;</div>
-<div class="line"><a name="l00672"></a><span class="lineno">  672</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#    SELECT : &quot;</span>;</div>
-<div class="line"><a name="l00673"></a><span class="lineno">  673</span>&#160;</div>
-<div class="line"><a name="l00674"></a><span class="lineno">  674</span>&#160;  <span class="keywordtype">char</span> input[100];</div>
-<div class="line"><a name="l00675"></a><span class="lineno">  675</span>&#160;  <span class="keywordtype">char</span> yesOrNo;</div>
-<div class="line"><a name="l00676"></a><span class="lineno">  676</span>&#160;  <span class="keywordtype">char</span> word[100];</div>
-<div class="line"><a name="l00677"></a><span class="lineno">  677</span>&#160;  <span class="keywordtype">char</span> mean[100];</div>
-<div class="line"><a name="l00678"></a><span class="lineno">  678</span>&#160;  cin &gt;&gt; input;</div>
-<div class="line"><a name="l00679"></a><span class="lineno">  679</span>&#160;</div>
-<div class="line"><a name="l00680"></a><span class="lineno">  680</span>&#160;  <span class="keywordflow">if</span> (input[0] &lt; <span class="charliteral">&#39;1&#39;</span> || input[0] &gt; <span class="charliteral">&#39;4&#39;</span>) {</div>
-<div class="line"><a name="l00681"></a><span class="lineno">  681</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#    WRONG INPUT&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00682"></a><span class="lineno">  682</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00683"></a><span class="lineno">  683</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00684"></a><span class="lineno">  684</span>&#160;  }</div>
-<div class="line"><a name="l00685"></a><span class="lineno">  685</span>&#160;</div>
-<div class="line"><a name="l00686"></a><span class="lineno">  686</span>&#160;  <span class="keywordflow">switch</span>(input[0]) {</div>
-<div class="line"><a name="l00687"></a><span class="lineno">  687</span>&#160;    <span class="keywordflow">case</span> <span class="charliteral">&#39;1&#39;</span>:</div>
-<div class="line"><a name="l00688"></a><span class="lineno">  688</span>&#160;      <span class="keywordflow">if</span> (<a class="code" href="class_voca_engine.html#af69965dc9656b354b1c6fc078c0f393f">addVoca</a>()) {</div>
-<div class="line"><a name="l00689"></a><span class="lineno">  689</span>&#160;        good = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00690"></a><span class="lineno">  690</span>&#160;      } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00691"></a><span class="lineno">  691</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;#    ERROR : ADD ERROR&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00692"></a><span class="lineno">  692</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00693"></a><span class="lineno">  693</span>&#160;        good = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00694"></a><span class="lineno">  694</span>&#160;      }</div>
-<div class="line"><a name="l00695"></a><span class="lineno">  695</span>&#160;      <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00696"></a><span class="lineno">  696</span>&#160;    <span class="keywordflow">case</span> <span class="charliteral">&#39;2&#39;</span>:</div>
-<div class="line"><a name="l00697"></a><span class="lineno">  697</span>&#160;      <a class="code" href="class_voca_engine.html#acd826d40b097a19251f144ab4a000b5a">manageList</a>(0);</div>
-<div class="line"><a name="l00698"></a><span class="lineno">  698</span>&#160;      good = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00699"></a><span class="lineno">  699</span>&#160;      <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00700"></a><span class="lineno">  700</span>&#160;    <span class="keywordflow">case</span> <span class="charliteral">&#39;3&#39;</span>:</div>
-<div class="line"><a name="l00701"></a><span class="lineno">  701</span>&#160;      <a class="code" href="class_voca_engine.html#a2cc61cc93f1369ddaa88bef1179ad504">testVoca</a>(<span class="keyword">true</span>, 0, 0);</div>
-<div class="line"><a name="l00702"></a><span class="lineno">  702</span>&#160;      good = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00703"></a><span class="lineno">  703</span>&#160;      <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00704"></a><span class="lineno">  704</span>&#160;    <span class="keywordflow">case</span> <span class="charliteral">&#39;4&#39;</span>:</div>
-<div class="line"><a name="l00705"></a><span class="lineno">  705</span>&#160;      cout &lt;&lt; <span class="stringliteral">&quot;#    PROGRAM TERMINATION&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00706"></a><span class="lineno">  706</span>&#160;      cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00707"></a><span class="lineno">  707</span>&#160;      good = <span class="keyword">false</span>;</div>
+<p>Definition at line <a class="el" href="_voca_master_8cpp_source.html#l00677">677</a> of file <a class="el" href="_voca_master_8cpp_source.html">VocaMaster.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00678"></a><span class="lineno">  678</span>&#160;{</div>
+<div class="line"><a name="l00679"></a><span class="lineno">  679</span>&#160;  <span class="keywordtype">bool</span> good = <span class="keyword">true</span>; <span class="comment">// ret val</span></div>
+<div class="line"><a name="l00680"></a><span class="lineno">  680</span>&#160;</div>
+<div class="line"><a name="l00681"></a><span class="lineno">  681</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#    SELECT : &quot;</span>;</div>
+<div class="line"><a name="l00682"></a><span class="lineno">  682</span>&#160;</div>
+<div class="line"><a name="l00683"></a><span class="lineno">  683</span>&#160;  <span class="keywordtype">char</span> input[100];</div>
+<div class="line"><a name="l00684"></a><span class="lineno">  684</span>&#160;  <span class="keywordtype">char</span> yesOrNo;</div>
+<div class="line"><a name="l00685"></a><span class="lineno">  685</span>&#160;  <span class="keywordtype">char</span> word[100];</div>
+<div class="line"><a name="l00686"></a><span class="lineno">  686</span>&#160;  <span class="keywordtype">char</span> mean[100];</div>
+<div class="line"><a name="l00687"></a><span class="lineno">  687</span>&#160;  cin &gt;&gt; input;</div>
+<div class="line"><a name="l00688"></a><span class="lineno">  688</span>&#160;</div>
+<div class="line"><a name="l00689"></a><span class="lineno">  689</span>&#160;  <span class="keywordflow">if</span> (input[0] &lt; <span class="charliteral">&#39;1&#39;</span> || input[0] &gt; <span class="charliteral">&#39;4&#39;</span>) {</div>
+<div class="line"><a name="l00690"></a><span class="lineno">  690</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#    WRONG INPUT&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00691"></a><span class="lineno">  691</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00692"></a><span class="lineno">  692</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00693"></a><span class="lineno">  693</span>&#160;  }</div>
+<div class="line"><a name="l00694"></a><span class="lineno">  694</span>&#160;</div>
+<div class="line"><a name="l00695"></a><span class="lineno">  695</span>&#160;  <span class="keywordflow">switch</span>(input[0]) {</div>
+<div class="line"><a name="l00696"></a><span class="lineno">  696</span>&#160;    <span class="keywordflow">case</span> <span class="charliteral">&#39;1&#39;</span>:</div>
+<div class="line"><a name="l00697"></a><span class="lineno">  697</span>&#160;      <span class="keywordflow">if</span> (<a class="code" href="class_voca_engine.html#af69965dc9656b354b1c6fc078c0f393f">addVoca</a>()) {</div>
+<div class="line"><a name="l00698"></a><span class="lineno">  698</span>&#160;        good = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00699"></a><span class="lineno">  699</span>&#160;      } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00700"></a><span class="lineno">  700</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;#    ERROR : ADD ERROR&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00701"></a><span class="lineno">  701</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00702"></a><span class="lineno">  702</span>&#160;        good = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00703"></a><span class="lineno">  703</span>&#160;      }</div>
+<div class="line"><a name="l00704"></a><span class="lineno">  704</span>&#160;      <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00705"></a><span class="lineno">  705</span>&#160;    <span class="keywordflow">case</span> <span class="charliteral">&#39;2&#39;</span>:</div>
+<div class="line"><a name="l00706"></a><span class="lineno">  706</span>&#160;      <a class="code" href="class_voca_engine.html#acd826d40b097a19251f144ab4a000b5a">manageList</a>(0);</div>
+<div class="line"><a name="l00707"></a><span class="lineno">  707</span>&#160;      good = <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00708"></a><span class="lineno">  708</span>&#160;      <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00709"></a><span class="lineno">  709</span>&#160;  }</div>
-<div class="line"><a name="l00710"></a><span class="lineno">  710</span>&#160;</div>
-<div class="line"><a name="l00711"></a><span class="lineno">  711</span>&#160;  <span class="keywordflow">return</span> good;</div>
-<div class="line"><a name="l00712"></a><span class="lineno">  712</span>&#160;}</div>
-<div class="ttc" id="class_voca_engine_html_acd826d40b097a19251f144ab4a000b5a"><div class="ttname"><a href="class_voca_engine.html#acd826d40b097a19251f144ab4a000b5a">VocaEngine::manageList</a></div><div class="ttdeci">void manageList(int index)</div><div class="ttdoc">managing list menu </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8cpp_source.html#l00366">VocaMaster.cpp:366</a></div></div>
+<div class="line"><a name="l00709"></a><span class="lineno">  709</span>&#160;    <span class="keywordflow">case</span> <span class="charliteral">&#39;3&#39;</span>:</div>
+<div class="line"><a name="l00710"></a><span class="lineno">  710</span>&#160;      <a class="code" href="class_voca_engine.html#a2cc61cc93f1369ddaa88bef1179ad504">testVoca</a>(<span class="keyword">true</span>, 0, 0);</div>
+<div class="line"><a name="l00711"></a><span class="lineno">  711</span>&#160;      good = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00712"></a><span class="lineno">  712</span>&#160;      <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00713"></a><span class="lineno">  713</span>&#160;    <span class="keywordflow">case</span> <span class="charliteral">&#39;4&#39;</span>:</div>
+<div class="line"><a name="l00714"></a><span class="lineno">  714</span>&#160;      cout &lt;&lt; <span class="stringliteral">&quot;#    PROGRAM TERMINATION&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00715"></a><span class="lineno">  715</span>&#160;      cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00716"></a><span class="lineno">  716</span>&#160;      good = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00717"></a><span class="lineno">  717</span>&#160;      <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00718"></a><span class="lineno">  718</span>&#160;  }</div>
+<div class="line"><a name="l00719"></a><span class="lineno">  719</span>&#160;</div>
+<div class="line"><a name="l00720"></a><span class="lineno">  720</span>&#160;  <span class="keywordflow">return</span> good;</div>
+<div class="line"><a name="l00721"></a><span class="lineno">  721</span>&#160;}</div>
+<div class="ttc" id="class_voca_engine_html_acd826d40b097a19251f144ab4a000b5a"><div class="ttname"><a href="class_voca_engine.html#acd826d40b097a19251f144ab4a000b5a">VocaEngine::manageList</a></div><div class="ttdeci">void manageList(int index)</div><div class="ttdoc">managing list menu </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8cpp_source.html#l00375">VocaMaster.cpp:375</a></div></div>
 <div class="ttc" id="class_voca_engine_html_af69965dc9656b354b1c6fc078c0f393f"><div class="ttname"><a href="class_voca_engine.html#af69965dc9656b354b1c6fc078c0f393f">VocaEngine::addVoca</a></div><div class="ttdeci">bool addVoca(void)</div><div class="ttdoc">adding new vocabulary </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8cpp_source.html#l00222">VocaMaster.cpp:222</a></div></div>
-<div class="ttc" id="class_voca_engine_html_a2cc61cc93f1369ddaa88bef1179ad504"><div class="ttname"><a href="class_voca_engine.html#a2cc61cc93f1369ddaa88bef1179ad504">VocaEngine::testVoca</a></div><div class="ttdeci">void testVoca(bool first, int correct, int total)</div><div class="ttdoc">vocabulary test function </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8cpp_source.html#l00469">VocaMaster.cpp:469</a></div></div>
+<div class="ttc" id="class_voca_engine_html_a2cc61cc93f1369ddaa88bef1179ad504"><div class="ttname"><a href="class_voca_engine.html#a2cc61cc93f1369ddaa88bef1179ad504">VocaEngine::testVoca</a></div><div class="ttdeci">void testVoca(bool first, int correct, int total)</div><div class="ttdoc">vocabulary test function </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8cpp_source.html#l00478">VocaMaster.cpp:478</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -869,58 +873,63 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="_voca_master_8cpp_source.html#l00264">264</a> of file <a class="el" href="_voca_master_8cpp_source.html">VocaMaster.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;{</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;  ofstream *o = <a class="code" href="list_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;</div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="class_voca_engine.html#a97f53364148cce52e71effad64202321">dirty</a>) {</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;    o = <span class="keyword">new</span> ofstream(<a class="code" href="_voca_master_8cpp.html#a8de29f7c8bbf1a81cc6e71ac602032d3">FILENAME</a>); </div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>-&gt;<a class="code" href="class_list.html#a4d8d3acaf718d470e1084814a6155814">getSize</a>(); i++) {</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;      <span class="keywordtype">char</span>* word = <a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>-&gt;<a class="code" href="class_list.html#aa93404b4c7f3f86a560a0a675f55c9bd">getContent</a>(i)-&gt;<a class="code" href="class_voca.html#a7704be52df8c678aedec150fe8ef1584">getWord</a>();</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;      <span class="keywordtype">char</span>* meaning = <a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>-&gt;<a class="code" href="class_list.html#aa93404b4c7f3f86a560a0a675f55c9bd">getContent</a>(i)-&gt;<a class="code" href="class_voca.html#a23880acf1d00fbf527f2af84d0738476">getMean</a>();</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;      <span class="keywordtype">char</span>* explain = <a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>-&gt;<a class="code" href="class_list.html#aa93404b4c7f3f86a560a0a675f55c9bd">getContent</a>(i)-&gt;<a class="code" href="class_voca.html#ac7bef5e270bdca08eb12b30bc74857bc">getExplain</a>();</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;      <span class="keywordtype">char</span>* exp_str = IntToStr(<a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>-&gt;<a class="code" href="class_list.html#aa93404b4c7f3f86a560a0a675f55c9bd">getContent</a>(i)-&gt;<a class="code" href="class_voca.html#ad625145a2f9784d646c1dcb7fc4dafce">getExp</a>());</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;      <span class="keywordtype">char</span>* level_str = IntToStr(<a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>-&gt;<a class="code" href="class_list.html#aa93404b4c7f3f86a560a0a675f55c9bd">getContent</a>(i)-&gt;<a class="code" href="class_voca.html#a815acf8f5e8ab1d844932a25f35b7753">getLevel</a>());</div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;      </div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;<span class="preprocessor">#if TRACE_SAVE</span></div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;<span class="preprocessor"></span>      cout &lt;&lt; <span class="stringliteral">&quot;#    write &quot;</span> &lt;&lt; word &lt;&lt; <span class="stringliteral">&quot; &quot;</span> &lt;&lt; meaning &lt;&lt; <span class="stringliteral">&quot; &quot;</span></div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;           &lt;&lt; explain &lt;&lt; <span class="stringliteral">&quot; &quot;</span> &lt;&lt; exp_str &lt;&lt; <span class="stringliteral">&quot; &quot;</span> &lt;&lt; level_str &lt;&lt; endl;</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;      <span class="keywordtype">int</span> pnt = 0;</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;      <span class="keywordflow">while</span>(word[pnt] != <span class="charliteral">&#39;\0&#39;</span>)</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;        o-&gt;put(word[pnt++]);</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;      <span class="comment">// put token</span></div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;      o-&gt;put(<span class="charliteral">&#39;%&#39;</span>);</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;      pnt = 0;</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;      <span class="keywordflow">while</span>(meaning[pnt] != <span class="charliteral">&#39;\0&#39;</span>)</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;        o-&gt;put(meaning[pnt++]);</div>
+<p>Definition at line <a class="el" href="_voca_master_8cpp_source.html#l00268">268</a> of file <a class="el" href="_voca_master_8cpp_source.html">VocaMaster.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;{</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;  ofstream *o = <a class="code" href="list_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="class_voca_engine.html#a97f53364148cce52e71effad64202321">dirty</a>) {</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    o = <span class="keyword">new</span> ofstream(<a class="code" href="_voca_master_8cpp.html#a8de29f7c8bbf1a81cc6e71ac602032d3">FILENAME</a>); </div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;    </div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>-&gt;<a class="code" href="class_list.html#a4d8d3acaf718d470e1084814a6155814">getSize</a>(); i++) {</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;      <span class="keywordtype">char</span>* word = <a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>-&gt;<a class="code" href="class_list.html#aa93404b4c7f3f86a560a0a675f55c9bd">getContent</a>(i)-&gt;<a class="code" href="class_voca.html#a7704be52df8c678aedec150fe8ef1584">getWord</a>();</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;      <span class="keywordtype">char</span>* meaning = <a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>-&gt;<a class="code" href="class_list.html#aa93404b4c7f3f86a560a0a675f55c9bd">getContent</a>(i)-&gt;<a class="code" href="class_voca.html#a23880acf1d00fbf527f2af84d0738476">getMean</a>();</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;      <span class="keywordtype">char</span>* explain = <a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>-&gt;<a class="code" href="class_list.html#aa93404b4c7f3f86a560a0a675f55c9bd">getContent</a>(i)-&gt;<a class="code" href="class_voca.html#ac7bef5e270bdca08eb12b30bc74857bc">getExplain</a>();</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;      <span class="keywordtype">char</span>* exp_str = IntToStr(<a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>-&gt;<a class="code" href="class_list.html#aa93404b4c7f3f86a560a0a675f55c9bd">getContent</a>(i)-&gt;<a class="code" href="class_voca.html#ad625145a2f9784d646c1dcb7fc4dafce">getExp</a>());</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;      <span class="keywordtype">char</span>* level_str = IntToStr(<a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>-&gt;<a class="code" href="class_list.html#aa93404b4c7f3f86a560a0a675f55c9bd">getContent</a>(i)-&gt;<a class="code" href="class_voca.html#a815acf8f5e8ab1d844932a25f35b7753">getLevel</a>());</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;      </div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;<span class="preprocessor">#if TRACE_SAVE</span></div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;<span class="preprocessor"></span>      cout &lt;&lt; <span class="stringliteral">&quot;#    write &quot;</span> &lt;&lt; word &lt;&lt; <span class="stringliteral">&quot; &quot;</span> &lt;&lt; meaning &lt;&lt; <span class="stringliteral">&quot; &quot;</span></div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;           &lt;&lt; explain &lt;&lt; <span class="stringliteral">&quot; &quot;</span> &lt;&lt; exp_str &lt;&lt; <span class="stringliteral">&quot; &quot;</span> &lt;&lt; level_str &lt;&lt; endl;</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;      <span class="keywordtype">int</span> pnt = 0;</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;      <span class="keywordflow">while</span>(word[pnt] != <span class="charliteral">&#39;\0&#39;</span>) {</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;        o-&gt;put(word[pnt++]);</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;      }</div>
 <div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;      o-&gt;put(<span class="charliteral">&#39;%&#39;</span>);</div>
 <div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;</div>
 <div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;      pnt = 0;</div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;      <span class="keywordflow">while</span>(explain[pnt] != <span class="charliteral">&#39;\0&#39;</span>)</div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;        o-&gt;put(explain[pnt++]);</div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;      o-&gt;put(<span class="charliteral">&#39;%&#39;</span>);</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;</div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;      pnt = 0;</div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;      <span class="keywordflow">while</span>(exp_str[pnt] != <span class="charliteral">&#39;\0&#39;</span>)</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;        o-&gt;put(exp_str[pnt++]);</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;      o-&gt;put(<span class="charliteral">&#39;%&#39;</span>);</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;</div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;      pnt = 0;</div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;      <span class="keywordflow">while</span>(level_str[pnt] != <span class="charliteral">&#39;\0&#39;</span>)</div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;        o-&gt;put(level_str[pnt++]);</div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;      o-&gt;put(<span class="charliteral">&#39;$&#39;</span>);</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;    }</div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;    </div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;    o-&gt;close();</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;      <span class="keywordflow">while</span>(meaning[pnt] != <span class="charliteral">&#39;\0&#39;</span>) {</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;        o-&gt;put(meaning[pnt++]);</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;      }</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;      o-&gt;put(<span class="charliteral">&#39;%&#39;</span>);</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;      pnt = 0;</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;      <span class="keywordflow">while</span>(explain[pnt] != <span class="charliteral">&#39;\0&#39;</span>) {</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;        o-&gt;put(explain[pnt++]);</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;      }</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;      o-&gt;put(<span class="charliteral">&#39;%&#39;</span>);</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;      pnt = 0;</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;      <span class="keywordflow">while</span>(exp_str[pnt] != <span class="charliteral">&#39;\0&#39;</span>) {</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;        o-&gt;put(exp_str[pnt++]);</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;      }</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;      o-&gt;put(<span class="charliteral">&#39;%&#39;</span>);</div>
 <div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;</div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;  } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;  }</div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;}</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;      pnt = 0;</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;      <span class="keywordflow">while</span>(level_str[pnt] != <span class="charliteral">&#39;\0&#39;</span>) {</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;        o-&gt;put(level_str[pnt++]);</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;      }</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;      o-&gt;put(<span class="charliteral">&#39;$&#39;</span>);</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;    }</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;    </div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;    o-&gt;close();</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;    </div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;  } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;  }</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;}</div>
 <div class="ttc" id="class_voca_html_a815acf8f5e8ab1d844932a25f35b7753"><div class="ttname"><a href="class_voca.html#a815acf8f5e8ab1d844932a25f35b7753">Voca::getLevel</a></div><div class="ttdeci">int getLevel(void)</div><div class="ttdoc">getting level point </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8cpp_source.html#l00187">VocaMaster.cpp:187</a></div></div>
 <div class="ttc" id="class_voca_html_ac7bef5e270bdca08eb12b30bc74857bc"><div class="ttname"><a href="class_voca.html#ac7bef5e270bdca08eb12b30bc74857bc">Voca::getExplain</a></div><div class="ttdeci">char * getExplain(void)</div><div class="ttdoc">getting explanation </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8cpp_source.html#l00179">VocaMaster.cpp:179</a></div></div>
 <div class="ttc" id="class_voca_html_a7704be52df8c678aedec150fe8ef1584"><div class="ttname"><a href="class_voca.html#a7704be52df8c678aedec150fe8ef1584">Voca::getWord</a></div><div class="ttdeci">char * getWord(void)</div><div class="ttdoc">getting word string </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8cpp_source.html#l00171">VocaMaster.cpp:171</a></div></div>
@@ -965,18 +974,18 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="_voca_master_8cpp_source.html#l00317">317</a> of file <a class="el" href="_voca_master_8cpp_source.html">VocaMaster.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;                             {</div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;  srand(time(0));</div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;  <span class="keywordtype">int</span> index = rand() % <a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>-&gt;<a class="code" href="class_list.html#a4d8d3acaf718d470e1084814a6155814">getSize</a>();</div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;</div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;  <span class="keywordflow">while</span> (!<a class="code" href="class_voca_engine.html#a1c42e2e44425dde2a6ae5adea364465f">levelPenalty</a>(<a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>-&gt;<a class="code" href="class_list.html#aa93404b4c7f3f86a560a0a675f55c9bd">getContent</a>(index)))</div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;    index = rand() % <a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>-&gt;<a class="code" href="class_list.html#a4d8d3acaf718d470e1084814a6155814">getSize</a>();</div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;</div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>-&gt;<a class="code" href="class_list.html#aa93404b4c7f3f86a560a0a675f55c9bd">getContent</a>(index);</div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;}</div>
+<p>Definition at line <a class="el" href="_voca_master_8cpp_source.html#l00326">326</a> of file <a class="el" href="_voca_master_8cpp_source.html">VocaMaster.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;                             {</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;  srand(time(0));</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;  <span class="keywordtype">int</span> index = rand() % <a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>-&gt;<a class="code" href="class_list.html#a4d8d3acaf718d470e1084814a6155814">getSize</a>();</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;  <span class="keywordflow">while</span> (!<a class="code" href="class_voca_engine.html#a1c42e2e44425dde2a6ae5adea364465f">levelPenalty</a>(<a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>-&gt;<a class="code" href="class_list.html#aa93404b4c7f3f86a560a0a675f55c9bd">getContent</a>(index)))</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;    index = rand() % <a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>-&gt;<a class="code" href="class_list.html#a4d8d3acaf718d470e1084814a6155814">getSize</a>();</div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>-&gt;<a class="code" href="class_list.html#aa93404b4c7f3f86a560a0a675f55c9bd">getContent</a>(index);</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;}</div>
 <div class="ttc" id="class_voca_engine_html_a2646d40c08456470c7dd545a8bf4bffb"><div class="ttname"><a href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">VocaEngine::list</a></div><div class="ttdeci">List&lt; Voca * &gt; * list</div><div class="ttdoc">Voca class list. </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8h_source.html#l00131">VocaMaster.h:131</a></div></div>
-<div class="ttc" id="class_voca_engine_html_a1c42e2e44425dde2a6ae5adea364465f"><div class="ttname"><a href="class_voca_engine.html#a1c42e2e44425dde2a6ae5adea364465f">VocaEngine::levelPenalty</a></div><div class="ttdeci">bool levelPenalty(Voca *voca)</div><div class="ttdoc">calculating level penalty and return boolean value </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8cpp_source.html#l00327">VocaMaster.cpp:327</a></div></div>
+<div class="ttc" id="class_voca_engine_html_a1c42e2e44425dde2a6ae5adea364465f"><div class="ttname"><a href="class_voca_engine.html#a1c42e2e44425dde2a6ae5adea364465f">VocaEngine::levelPenalty</a></div><div class="ttdeci">bool levelPenalty(Voca *voca)</div><div class="ttdoc">calculating level penalty and return boolean value </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8cpp_source.html#l00336">VocaMaster.cpp:336</a></div></div>
 <div class="ttc" id="class_list_html_a4d8d3acaf718d470e1084814a6155814"><div class="ttname"><a href="class_list.html#a4d8d3acaf718d470e1084814a6155814">List::getSize</a></div><div class="ttdeci">unsigned int getSize(void) const </div><div class="ttdoc">return the number of nodes which the list has </div><div class="ttdef"><b>Definition:</b> <a href="list_8h_source.html#l00248">list.h:248</a></div></div>
 <div class="ttc" id="class_list_html_aa93404b4c7f3f86a560a0a675f55c9bd"><div class="ttname"><a href="class_list.html#aa93404b4c7f3f86a560a0a675f55c9bd">List::getContent</a></div><div class="ttdeci">T getContent(unsigned int index) const </div><div class="ttdoc">return content which is contained given index node </div><div class="ttdef"><b>Definition:</b> <a href="list_8h_source.html#l00236">list.h:236</a></div></div>
 </div><!-- fragment -->
@@ -999,15 +1008,15 @@ Private Attributes</h2></td></tr>
 <p>showing menu to console </p>
 <p><a class="el" href="class_voca_engine.html" title="Vocabulary Master Program Engine Class. ">VocaEngine</a> class public abstract control functions implementation. </p>
 
-<p>Definition at line <a class="el" href="_voca_master_8cpp_source.html#l00658">658</a> of file <a class="el" href="_voca_master_8cpp_source.html">VocaMaster.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00659"></a><span class="lineno">  659</span>&#160;{</div>
-<div class="line"><a name="l00660"></a><span class="lineno">  660</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#               [ MENU ]&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00661"></a><span class="lineno">  661</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#    (1) ADD&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00662"></a><span class="lineno">  662</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#    (2) LIST&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00663"></a><span class="lineno">  663</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#    (3) TEST&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00664"></a><span class="lineno">  664</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#    (4) EXIT&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00665"></a><span class="lineno">  665</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00666"></a><span class="lineno">  666</span>&#160;}</div>
+<p>Definition at line <a class="el" href="_voca_master_8cpp_source.html#l00667">667</a> of file <a class="el" href="_voca_master_8cpp_source.html">VocaMaster.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00668"></a><span class="lineno">  668</span>&#160;{</div>
+<div class="line"><a name="l00669"></a><span class="lineno">  669</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#               [ MENU ]&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00670"></a><span class="lineno">  670</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#    (1) ADD&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00671"></a><span class="lineno">  671</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#    (2) LIST&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00672"></a><span class="lineno">  672</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#    (3) TEST&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00673"></a><span class="lineno">  673</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#    (4) EXIT&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00674"></a><span class="lineno">  674</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00675"></a><span class="lineno">  675</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1059,69 +1068,69 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="_voca_master_8cpp_source.html#l00469">469</a> of file <a class="el" href="_voca_master_8cpp_source.html">VocaMaster.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;                                                            {</div>
-<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;  <span class="keywordtype">int</span> cor = correct;</div>
-<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;</div>
-<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>-&gt;<a class="code" href="class_list.html#a4d8d3acaf718d470e1084814a6155814">getSize</a>() == 0) {</div>
-<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#             EMPTY LIST&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;    <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;  }</div>
-<div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;  </div>
-<div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;  <span class="keywordflow">if</span> (first) {</div>
-<div class="line"><a name="l00480"></a><span class="lineno">  480</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#                [ TEST ]&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00481"></a><span class="lineno">  481</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#    Write appropriate word matching following meanings.&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00482"></a><span class="lineno">  482</span>&#160;  }</div>
-<div class="line"><a name="l00483"></a><span class="lineno">  483</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00484"></a><span class="lineno">  484</span>&#160;  <a class="code" href="class_voca.html">Voca</a> *one = <a class="code" href="class_voca_engine.html#afb89b21b6859b01e90973d72de736bac">selectVoca</a>();</div>
-<div class="line"><a name="l00485"></a><span class="lineno">  485</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#    &quot;</span> &lt;&lt; one-&gt;<a class="code" href="class_voca.html#a23880acf1d00fbf527f2af84d0738476">getMean</a>() &lt;&lt; <span class="stringliteral">&quot; : &quot;</span>;</div>
-<div class="line"><a name="l00486"></a><span class="lineno">  486</span>&#160;  </div>
-<div class="line"><a name="l00487"></a><span class="lineno">  487</span>&#160;  <span class="keywordtype">char</span> buf[100]; cin &gt;&gt; buf;</div>
-<div class="line"><a name="l00488"></a><span class="lineno">  488</span>&#160;  <span class="keywordtype">char</span> *answer = <span class="keyword">new</span> <span class="keywordtype">char</span>[<span class="keyword">sizeof</span>(char) * Strlen(buf) + 1];</div>
-<div class="line"><a name="l00489"></a><span class="lineno">  489</span>&#160;  Strcpy(answer, buf);</div>
-<div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160;</div>
-<div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160;  <span class="keywordflow">if</span> (Strequal(one-&gt;<a class="code" href="class_voca.html#a7704be52df8c678aedec150fe8ef1584">getWord</a>(), answer)) {</div>
-<div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#    COLLECT!&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160;    one-&gt;<a class="code" href="class_voca.html#a6f77ab35cdc5a720f5143e7961494029">gainScore</a>();</div>
-<div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160;    cor++;</div>
-<div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160;  } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#    WRONG!&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160;    <span class="keywordflow">if</span> (one-&gt;<a class="code" href="class_voca.html#ac7bef5e270bdca08eb12b30bc74857bc">getExplain</a>() != <a class="code" href="list_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)</div>
-<div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;      cout &lt;&lt; <span class="stringliteral">&quot;#    COLLECT ANSWER IS [&quot;</span> &lt;&lt; one-&gt;<a class="code" href="class_voca.html#a7704be52df8c678aedec150fe8ef1584">getWord</a>()</div>
-<div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160;           &lt;&lt; <span class="stringliteral">&quot; -- &quot;</span> &lt;&lt; one-&gt;<a class="code" href="class_voca.html#ac7bef5e270bdca08eb12b30bc74857bc">getExplain</a>() &lt;&lt; <span class="stringliteral">&quot;]&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00501"></a><span class="lineno">  501</span>&#160;    <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00502"></a><span class="lineno">  502</span>&#160;      cout &lt;&lt; <span class="stringliteral">&quot;#    COLLECT ANSWER IS [&quot;</span> &lt;&lt; one-&gt;<a class="code" href="class_voca.html#a7704be52df8c678aedec150fe8ef1584">getWord</a>() &lt;&lt; <span class="stringliteral">&quot;]&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160;    one-&gt;<a class="code" href="class_voca.html#a6107b1196541b5eac303e28bc9542e3a">loseScore</a>();</div>
+<p>Definition at line <a class="el" href="_voca_master_8cpp_source.html#l00478">478</a> of file <a class="el" href="_voca_master_8cpp_source.html">VocaMaster.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;                                                            {</div>
+<div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;  <span class="keywordtype">int</span> cor = correct;</div>
+<div class="line"><a name="l00480"></a><span class="lineno">  480</span>&#160;</div>
+<div class="line"><a name="l00481"></a><span class="lineno">  481</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">list</a>-&gt;<a class="code" href="class_list.html#a4d8d3acaf718d470e1084814a6155814">getSize</a>() == 0) {</div>
+<div class="line"><a name="l00482"></a><span class="lineno">  482</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00483"></a><span class="lineno">  483</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#             EMPTY LIST&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00484"></a><span class="lineno">  484</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00485"></a><span class="lineno">  485</span>&#160;    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00486"></a><span class="lineno">  486</span>&#160;  }</div>
+<div class="line"><a name="l00487"></a><span class="lineno">  487</span>&#160;  </div>
+<div class="line"><a name="l00488"></a><span class="lineno">  488</span>&#160;  <span class="keywordflow">if</span> (first) {</div>
+<div class="line"><a name="l00489"></a><span class="lineno">  489</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#                [ TEST ]&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#    Write appropriate word matching following meanings.&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160;  }</div>
+<div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160;  <a class="code" href="class_voca.html">Voca</a> *one = <a class="code" href="class_voca_engine.html#afb89b21b6859b01e90973d72de736bac">selectVoca</a>();</div>
+<div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#    &quot;</span> &lt;&lt; one-&gt;<a class="code" href="class_voca.html#a23880acf1d00fbf527f2af84d0738476">getMean</a>() &lt;&lt; <span class="stringliteral">&quot; : &quot;</span>;</div>
+<div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;  </div>
+<div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160;  <span class="keywordtype">char</span> buf[100]; cin &gt;&gt; buf;</div>
+<div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160;  <span class="keywordtype">char</span> *answer = <span class="keyword">new</span> <span class="keywordtype">char</span>[<span class="keyword">sizeof</span>(char) * Strlen(buf) + 1];</div>
+<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160;  Strcpy(answer, buf);</div>
+<div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;</div>
+<div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160;  <span class="keywordflow">if</span> (Strequal(one-&gt;<a class="code" href="class_voca.html#a7704be52df8c678aedec150fe8ef1584">getWord</a>(), answer)) {</div>
+<div class="line"><a name="l00501"></a><span class="lineno">  501</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#    COLLECT!&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00502"></a><span class="lineno">  502</span>&#160;    one-&gt;<a class="code" href="class_voca.html#a6f77ab35cdc5a720f5143e7961494029">gainScore</a>();</div>
+<div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160;    cor++;</div>
 <div class="line"><a name="l00504"></a><span class="lineno">  504</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00505"></a><span class="lineno">  505</span>&#160;  }</div>
-<div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160;</div>
-<div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="class_voca_engine.html#a97f53364148cce52e71effad64202321">dirty</a>)</div>
-<div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160;    <a class="code" href="class_voca_engine.html#a97f53364148cce52e71effad64202321">dirty</a> = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160;  </div>
-<div class="line"><a name="l00510"></a><span class="lineno">  510</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#    (1) NEXT TEST (2) EXIT&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00511"></a><span class="lineno">  511</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#    SELECT : &quot;</span>;</div>
-<div class="line"><a name="l00512"></a><span class="lineno">  512</span>&#160;  <span class="keywordtype">char</span> sel[100]; cin &gt;&gt; sel;</div>
-<div class="line"><a name="l00513"></a><span class="lineno">  513</span>&#160;</div>
-<div class="line"><a name="l00514"></a><span class="lineno">  514</span>&#160;  <span class="keywordflow">if</span> (sel[0] != <span class="charliteral">&#39;1&#39;</span>) {</div>
-<div class="line"><a name="l00515"></a><span class="lineno">  515</span>&#160;    <span class="keywordflow">if</span> (sel[0] != <span class="charliteral">&#39;2&#39;</span>) {</div>
-<div class="line"><a name="l00516"></a><span class="lineno">  516</span>&#160;      cout &lt;&lt; <span class="stringliteral">&quot;#    WRONG INPUT&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00517"></a><span class="lineno">  517</span>&#160;      cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160;    }</div>
-<div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#               [ TEST RESULT ]&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#    TOTAL PROBLEM  : &quot;</span> &lt;&lt; total+1 &lt;&lt; endl;</div>
-<div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#    CORRECT ANSWER : &quot;</span> &lt;&lt; cor &lt;&lt; endl;</div>
-<div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#    WRONG ANSWER   : &quot;</span> &lt;&lt; total+1 - cor &lt;&lt; endl;</div>
-<div class="line"><a name="l00524"></a><span class="lineno">  524</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#    SUCCESS RATE   : &quot;</span> &lt;&lt; ((cor * 100) / (total + 1)) &lt;&lt; <span class="stringliteral">&quot;%&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160;  } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160;    <a class="code" href="class_voca_engine.html#a2cc61cc93f1369ddaa88bef1179ad504">testVoca</a>(<span class="keyword">false</span>, cor, total+1);</div>
-<div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160;  }</div>
-<div class="line"><a name="l00529"></a><span class="lineno">  529</span>&#160;}</div>
-<div class="ttc" id="class_voca_engine_html_afb89b21b6859b01e90973d72de736bac"><div class="ttname"><a href="class_voca_engine.html#afb89b21b6859b01e90973d72de736bac">VocaEngine::selectVoca</a></div><div class="ttdeci">Voca * selectVoca(void)</div><div class="ttdoc">selecting one word </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8cpp_source.html#l00317">VocaMaster.cpp:317</a></div></div>
+<div class="line"><a name="l00505"></a><span class="lineno">  505</span>&#160;  } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#    WRONG!&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160;    <span class="keywordflow">if</span> (one-&gt;<a class="code" href="class_voca.html#ac7bef5e270bdca08eb12b30bc74857bc">getExplain</a>() != <a class="code" href="list_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)</div>
+<div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160;      cout &lt;&lt; <span class="stringliteral">&quot;#    COLLECT ANSWER IS [&quot;</span> &lt;&lt; one-&gt;<a class="code" href="class_voca.html#a7704be52df8c678aedec150fe8ef1584">getWord</a>()</div>
+<div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160;           &lt;&lt; <span class="stringliteral">&quot; -- &quot;</span> &lt;&lt; one-&gt;<a class="code" href="class_voca.html#ac7bef5e270bdca08eb12b30bc74857bc">getExplain</a>() &lt;&lt; <span class="stringliteral">&quot;]&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00510"></a><span class="lineno">  510</span>&#160;    <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00511"></a><span class="lineno">  511</span>&#160;      cout &lt;&lt; <span class="stringliteral">&quot;#    COLLECT ANSWER IS [&quot;</span> &lt;&lt; one-&gt;<a class="code" href="class_voca.html#a7704be52df8c678aedec150fe8ef1584">getWord</a>() &lt;&lt; <span class="stringliteral">&quot;]&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00512"></a><span class="lineno">  512</span>&#160;    one-&gt;<a class="code" href="class_voca.html#a6107b1196541b5eac303e28bc9542e3a">loseScore</a>();</div>
+<div class="line"><a name="l00513"></a><span class="lineno">  513</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00514"></a><span class="lineno">  514</span>&#160;  }</div>
+<div class="line"><a name="l00515"></a><span class="lineno">  515</span>&#160;</div>
+<div class="line"><a name="l00516"></a><span class="lineno">  516</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="class_voca_engine.html#a97f53364148cce52e71effad64202321">dirty</a>)</div>
+<div class="line"><a name="l00517"></a><span class="lineno">  517</span>&#160;    <a class="code" href="class_voca_engine.html#a97f53364148cce52e71effad64202321">dirty</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160;  </div>
+<div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#    (1) NEXT TEST (2) EXIT&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;  cout &lt;&lt; <span class="stringliteral">&quot;#    SELECT : &quot;</span>;</div>
+<div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160;  <span class="keywordtype">char</span> sel[100]; cin &gt;&gt; sel;</div>
+<div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160;</div>
+<div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;  <span class="keywordflow">if</span> (sel[0] != <span class="charliteral">&#39;1&#39;</span>) {</div>
+<div class="line"><a name="l00524"></a><span class="lineno">  524</span>&#160;    <span class="keywordflow">if</span> (sel[0] != <span class="charliteral">&#39;2&#39;</span>) {</div>
+<div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;      cout &lt;&lt; <span class="stringliteral">&quot;#    WRONG INPUT&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160;      cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160;    }</div>
+<div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00529"></a><span class="lineno">  529</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#               [ TEST RESULT ]&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#    TOTAL PROBLEM  : &quot;</span> &lt;&lt; total+1 &lt;&lt; endl;</div>
+<div class="line"><a name="l00531"></a><span class="lineno">  531</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#    CORRECT ANSWER : &quot;</span> &lt;&lt; cor &lt;&lt; endl;</div>
+<div class="line"><a name="l00532"></a><span class="lineno">  532</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#    WRONG ANSWER   : &quot;</span> &lt;&lt; total+1 - cor &lt;&lt; endl;</div>
+<div class="line"><a name="l00533"></a><span class="lineno">  533</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#    SUCCESS RATE   : &quot;</span> &lt;&lt; ((cor * 100) / (total + 1)) &lt;&lt; <span class="stringliteral">&quot;%&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00534"></a><span class="lineno">  534</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;#&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00535"></a><span class="lineno">  535</span>&#160;  } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00536"></a><span class="lineno">  536</span>&#160;    <a class="code" href="class_voca_engine.html#a2cc61cc93f1369ddaa88bef1179ad504">testVoca</a>(<span class="keyword">false</span>, cor, total+1);</div>
+<div class="line"><a name="l00537"></a><span class="lineno">  537</span>&#160;  }</div>
+<div class="line"><a name="l00538"></a><span class="lineno">  538</span>&#160;}</div>
+<div class="ttc" id="class_voca_engine_html_afb89b21b6859b01e90973d72de736bac"><div class="ttname"><a href="class_voca_engine.html#afb89b21b6859b01e90973d72de736bac">VocaEngine::selectVoca</a></div><div class="ttdeci">Voca * selectVoca(void)</div><div class="ttdoc">selecting one word </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8cpp_source.html#l00326">VocaMaster.cpp:326</a></div></div>
 <div class="ttc" id="class_voca_html_ac7bef5e270bdca08eb12b30bc74857bc"><div class="ttname"><a href="class_voca.html#ac7bef5e270bdca08eb12b30bc74857bc">Voca::getExplain</a></div><div class="ttdeci">char * getExplain(void)</div><div class="ttdoc">getting explanation </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8cpp_source.html#l00179">VocaMaster.cpp:179</a></div></div>
 <div class="ttc" id="class_voca_html_a7704be52df8c678aedec150fe8ef1584"><div class="ttname"><a href="class_voca.html#a7704be52df8c678aedec150fe8ef1584">Voca::getWord</a></div><div class="ttdeci">char * getWord(void)</div><div class="ttdoc">getting word string </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8cpp_source.html#l00171">VocaMaster.cpp:171</a></div></div>
 <div class="ttc" id="class_voca_html_a23880acf1d00fbf527f2af84d0738476"><div class="ttname"><a href="class_voca.html#a23880acf1d00fbf527f2af84d0738476">Voca::getMean</a></div><div class="ttdeci">char * getMean(void)</div><div class="ttdoc">getting meaning string </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8cpp_source.html#l00175">VocaMaster.cpp:175</a></div></div>
@@ -1129,7 +1138,7 @@ Private Attributes</h2></td></tr>
 <div class="ttc" id="class_voca_html_a6f77ab35cdc5a720f5143e7961494029"><div class="ttname"><a href="class_voca.html#a6f77ab35cdc5a720f5143e7961494029">Voca::gainScore</a></div><div class="ttdeci">void gainScore(void)</div><div class="ttdoc">gaining experience score </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8cpp_source.html#l00191">VocaMaster.cpp:191</a></div></div>
 <div class="ttc" id="class_voca_html_a6107b1196541b5eac303e28bc9542e3a"><div class="ttname"><a href="class_voca.html#a6107b1196541b5eac303e28bc9542e3a">Voca::loseScore</a></div><div class="ttdeci">void loseScore(void)</div><div class="ttdoc">losing experience score </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8cpp_source.html#l00204">VocaMaster.cpp:204</a></div></div>
 <div class="ttc" id="class_voca_engine_html_a2646d40c08456470c7dd545a8bf4bffb"><div class="ttname"><a href="class_voca_engine.html#a2646d40c08456470c7dd545a8bf4bffb">VocaEngine::list</a></div><div class="ttdeci">List&lt; Voca * &gt; * list</div><div class="ttdoc">Voca class list. </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8h_source.html#l00131">VocaMaster.h:131</a></div></div>
-<div class="ttc" id="class_voca_engine_html_a2cc61cc93f1369ddaa88bef1179ad504"><div class="ttname"><a href="class_voca_engine.html#a2cc61cc93f1369ddaa88bef1179ad504">VocaEngine::testVoca</a></div><div class="ttdeci">void testVoca(bool first, int correct, int total)</div><div class="ttdoc">vocabulary test function </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8cpp_source.html#l00469">VocaMaster.cpp:469</a></div></div>
+<div class="ttc" id="class_voca_engine_html_a2cc61cc93f1369ddaa88bef1179ad504"><div class="ttname"><a href="class_voca_engine.html#a2cc61cc93f1369ddaa88bef1179ad504">VocaEngine::testVoca</a></div><div class="ttdeci">void testVoca(bool first, int correct, int total)</div><div class="ttdoc">vocabulary test function </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8cpp_source.html#l00478">VocaMaster.cpp:478</a></div></div>
 <div class="ttc" id="class_voca_engine_html_a97f53364148cce52e71effad64202321"><div class="ttname"><a href="class_voca_engine.html#a97f53364148cce52e71effad64202321">VocaEngine::dirty</a></div><div class="ttdeci">bool dirty</div><div class="ttdoc">dirty bit which means an update exists </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8h_source.html#l00132">VocaMaster.h:132</a></div></div>
 <div class="ttc" id="class_voca_html"><div class="ttname"><a href="class_voca.html">Voca</a></div><div class="ttdoc">Vocabulary Entry Class. </div><div class="ttdef"><b>Definition:</b> <a href="_voca_master_8h_source.html#l00038">VocaMaster.h:38</a></div></div>
 <div class="ttc" id="class_list_html_a4d8d3acaf718d470e1084814a6155814"><div class="ttname"><a href="class_list.html#a4d8d3acaf718d470e1084814a6155814">List::getSize</a></div><div class="ttdeci">unsigned int getSize(void) const </div><div class="ttdoc">return the number of nodes which the list has </div><div class="ttdef"><b>Definition:</b> <a href="list_8h_source.html#l00248">list.h:248</a></div></div>
@@ -1192,7 +1201,7 @@ Private Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 14 2015 13:09:47 for VocaMaster by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jan 16 2015 13:51:27 for VocaMaster by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

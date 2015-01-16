@@ -242,6 +242,10 @@ bool VocaEngine::addVoca()
   cout << "#" << endl;
 
   if (list->addNode(new Voca(word, mean, explain, 0, 1))) {
+    cout << "#    [" << word << " - " << mean << " - " << explain
+         << "] ADDED!!" << endl;
+    cout << "#" << endl;
+
     if (!dirty)
       dirty = true;
     return true;

@@ -166,9 +166,17 @@ private:
 
   /// @brief duplicated checking
   ///
-  /// @retval true if duplication
-  /// @retval false if no duplication
+  /// @param str target string
+  /// @retval true want to continue adding voca
+  /// @retval false stop to add voca
   bool dupCheck(char* str);
+
+  /// @brief finding similar vocabulary
+  ///
+  /// @param str target string
+  /// @retval true if match || similar
+  /// @retval false if no match
+  bool findSim(char* str);
   /// @}
 
   /// @name private abstract functional attributes

@@ -288,9 +288,10 @@ bool VocaEngine::addVoca()
 
   cout << "#    WORD : ";
   cin >> word;
-
-  if (dupCheck(word)) { // duplicated
-    cout << "#    ALREADY EXIST!!" << endl;
+  
+  char *tmp = new char[sizeof(char) * Strlen(word) + 1];
+  Strcpy(tmp, word);
+  if (dupCheck(tmp)) { // if true, stop
     cout << "#" << endl;
     return true;
   }
@@ -404,15 +405,84 @@ bool VocaEngine::levelPenalty(Voca* voca) {
     return false; // means unselect
 }
 
-bool VocaEngine::dupCheck(char* str) {
-  char *tmp = new char[sizeof(char) * Strlen(str) + 1];
-  Strcpy(tmp, str);
-  
-  for (unsigned int i = 0; i < list->getSize(); i++)
-    if (Strequal(list->getContent(i)->getWord(), tmp))
+bool VocaEngine::dupCheck(char* str) { // true : stop, false : continue adding
+  if (findSim(str)) {
+    cout << "#    Do you really want to proceed to add ?" << endl;
+    cout << "#    (1) Yes (2) No [Default]" << endl;
+    cout << "#" << endl;
+    cout << "#    SELECT : ";
+    char input[100]; cin >> input;
+
+    if (input[0] != '1' && input[0] != '2') {
+      cout << "#    ERROR : WRONG INPUT" << endl;
       return true;
+    }
+    
+    if (input[0] == '1')
+      return false;
+    else
+      return true;
+  }
 
   return false;
+}
+
+#define SIM_THRESHOLD 20 ///< similarity threshold value as percent
+
+bool VocaEngine::findSim(char* str) { // true : match || similar , false : no match
+  bool ret;
+
+  Voca *match = NULL;
+  List <int*> *simList = new List <int*> (); 
+  for (int i = 0; i < list->getSize(); i++) {
+    if (Strtype(str) != Strtype(list->getContent(i)->getWord()))
+      continue;
+
+    int similarity = Strsim(list->getContent(i)->getWord(), str, Strtype(str));
+
+    if (similarity == 100) {  // equal
+      match = list->getContent(i);
+    } else if (similarity > SIM_THRESHOLD) {  // similar
+      int *indexNum = new int(i);
+      simList->addNode(indexNum);
+    }
+  }
+
+  if (match) {
+    cout << "#" << endl;
+    cout << "#    MATCH WORD FOUND !" << endl;
+    cout << "#" << endl;
+    cout << "#    " << match->getWord() << " [" << match->getExplain() << "] : "
+      << match->getMean() << endl;
+
+    ret = true;
+  }
+
+  if (simList->getSize() > 0) {
+    cout << "#" << endl;
+    cout << "#    SIMILAR WORD FOUND !" << endl;
+    cout << "#" << endl;
+    for (int i = 0; i < simList->getSize(); i++) {
+      int index = *(simList->getContent(i));
+      cout << "#    " << list->getContent(index)->getWord() << " [" 
+        << list->getContent(index)->getExplain() << "] : "
+        << list->getContent(index)->getMean() << endl;
+    }
+
+    ret = true;
+  }
+
+  if (match == NULL && simList->getSize() == 0) {
+    cout << "#" << endl;
+    cout << "#    NO MATCH WORD !" << endl;
+
+    ret = false;
+  }
+  cout << "#" << endl;
+
+  delete (simList);
+  
+  return ret;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -536,8 +606,6 @@ void VocaEngine::manageList(int index) {
   }
 }
 
-#define SIM_THRESHOLD 20 ///< similarity threshold value as percent
-
 void VocaEngine::searchVoca() {
   cout << "#" << endl;
   cout << "#    NOTICE : SEARCH only supports word-based search." << endl;
@@ -548,51 +616,11 @@ void VocaEngine::searchVoca() {
   char buf[100]; cin >> buf;
   char *search = new char[sizeof(char) * Strlen(buf) + 1];
   Strcpy(search, buf);
-
-  Voca *match = NULL;
-  List <int*> *simList = new List <int*> (); 
-  for (int i = 0; i < list->getSize(); i++) {
-    if (Strtype(search) != Strtype(list->getContent(i)->getWord()))
-      continue;
-   
-    int similarity = Strsim(list->getContent(i)->getWord(), search, Strtype(search));
-    
-    if (similarity == 100) {  // equal
-      match = list->getContent(i);
-    } else if (similarity > SIM_THRESHOLD) {  // similar
-      int *indexNum = new int(i);
-      simList->addNode(indexNum);
-    }
-  }
-
-  if (match) {
-    cout << "#" << endl;
-    cout << "#    MATCH WORD FOUND !" << endl;
-    cout << "#" << endl;
-    cout << "#    " << match->getWord() << " [" << match->getExplain() << "] : "
-      << match->getMean() << endl;
-  }
   
-  if (simList->getSize() > 0) {
-    cout << "#" << endl;
-    cout << "#    SIMILAR WORD FOUND !" << endl;
-    cout << "#" << endl;
-    for (int i = 0; i < simList->getSize(); i++) {
-      int index = *(simList->getContent(i));
-      cout << "#    " << list->getContent(index)->getWord() << " [" 
-        << list->getContent(index)->getExplain() << "] : "
-        << list->getContent(index)->getMean() << endl;
-    }
-  }
+  // search match & similar one
+  findSim(search);
 
-  if (match == NULL && simList->getSize() == 0) {
-    cout << "#" << endl;
-    cout << "#    NO MATCH WORD !" << endl;
-  }
-  cout << "#" << endl;
-  
-  delete (simList);
-  delete (search);
+  delete(search);
 }
 
 void VocaEngine::testVoca(bool first, int correct, int total) {

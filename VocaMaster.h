@@ -10,6 +10,7 @@
 /// 2015/01/12 Suwon Oh updated some functions @n
 /// 2015/01/13 Suwon Oh finished test algorithm @n
 /// 2015/01/14 Suwon Oh test complishment added @n
+/// 2015/01/20 Suwon Oh search feature added @n
 ///
 /// @section purpose_section Purpose
 /// Application for self-study
@@ -184,6 +185,9 @@ private:
   /// @param index starting voca list index
   void manageList(int index);
 
+  /// @brief searching a vocabulary in the list
+  void searchVoca(void);
+  
   /// @brief vocabulary test function
   ///
   /// @param first flag whether this test is first time

@@ -10,6 +10,7 @@
 /// 2015/01/12 Suwon Oh updated some functions @n
 /// 2015/01/13 Suwon Oh finished test algorithm @n
 /// 2015/01/14 Suwon Oh test complishment added @n
+/// 2015/01/20 Suwon Oh search feature added @n
 ///
 /// @section purpose_section Purpose
 /// Application for self-study
@@ -76,6 +77,66 @@ static inline bool Strequal(char* str1, char* str2) {
   }
 
   return true;
+}
+
+static inline int Strtype(char* str) { // 0 : null, 1 : ascii, 2: unicode
+  if (str) {
+    if ((int)str[0] >= 0) // including ascii NULL
+      return 1; // ascii
+    else
+      return 2; // unicode
+  }
+
+  return 0; // null
+}
+
+static inline int Strsim(char* str1, char* str2, int type) { // type [ 1: ascii, 2: unicode ]
+  char *larger = NULL; char *smaller = NULL;
+  
+  if (Strlen(str1) >= Strlen(str2)) {
+    larger = str1; smaller = str2;
+  } else {
+    larger = str2; smaller = str1;
+  }
+  
+  if (type == 1) { // ascii
+    for (int tmpSize = Strlen(smaller); tmpSize > (Strlen(smaller) / 2); tmpSize--) {
+      for (int tmpIndex = 0; tmpIndex <= (Strlen(smaller) - tmpSize); tmpIndex++) {
+        for (int cmpIndex = 0; cmpIndex <= (Strlen(larger) - tmpSize); cmpIndex++) {
+          bool equal = true;
+          for (int i = 0; i < tmpSize; i++) {
+            if (smaller[tmpIndex + i] != larger[cmpIndex + i]) {
+              equal = false;
+              break;
+            }
+          }
+
+          if (equal)
+            return 100 * tmpSize / Strlen(larger);
+        }
+      }
+    }
+  }
+  else {
+    for (int tmpSize = Strlen(smaller); tmpSize > (Strlen(smaller) / 2); tmpSize -= 3) {
+      for (int tmpIndex = 0; tmpIndex <= (Strlen(smaller) - tmpSize); tmpIndex += 3) {
+        for (int cmpIndex = 0; cmpIndex <= (Strlen(larger) - tmpSize); cmpIndex += 3) {
+          bool equal = true;
+          for (int i = 0; i < tmpSize; i++) {
+            if (smaller[tmpIndex + i] != larger[cmpIndex + i]) {
+              equal = false;
+              break;
+            }
+          }
+
+          if (equal)
+            return 100 * tmpSize / Strlen(larger);
+        }
+      }
+    }
+  }
+
+  return 0; // no match
 }
 
 static inline int StrToInt(char* str) {
@@ -475,6 +536,65 @@ void VocaEngine::manageList(int index) {
   }
 }
 
+#define SIM_THRESHOLD 20 ///< similarity threshold value as percent
+
+void VocaEngine::searchVoca() {
+  cout << "#" << endl;
+  cout << "#    NOTICE : SEARCH only supports word-based search." << endl;
+  cout << "#             You can find it only with its word, not its meaning." << endl;
+  cout << "#" << endl;
+  cout << "#    SEARCH WORD : ";
+
+  char buf[100]; cin >> buf;
+  char *search = new char[sizeof(char) * Strlen(buf) + 1];
+  Strcpy(search, buf);
+
+  Voca *match = NULL;
+  List <int*> *simList = new List <int*> (); 
+  for (int i = 0; i < list->getSize(); i++) {
+    if (Strtype(search) != Strtype(list->getContent(i)->getWord()))
+      continue;
+   
+    int similarity = Strsim(list->getContent(i)->getWord(), search, Strtype(search));
+    
+    if (similarity == 100) {  // equal
+      match = list->getContent(i);
+    } else if (similarity > SIM_THRESHOLD) {  // similar
+      int *indexNum = new int(i);
+      simList->addNode(indexNum);
+    }
+  }
+
+  if (match) {
+    cout << "#" << endl;
+    cout << "#    MATCH WORD FOUND !" << endl;
+    cout << "#" << endl;
+    cout << "#    " << match->getWord() << " [" << match->getExplain() << "] : "
+      << match->getMean() << endl;
+  }
+  
+  if (simList->getSize() > 0) {
+    cout << "#" << endl;
+    cout << "#    SIMILAR WORD FOUND !" << endl;
+    cout << "#" << endl;
+    for (int i = 0; i < simList->getSize(); i++) {
+      int index = *(simList->getContent(i));
+      cout << "#    " << list->getContent(index)->getWord() << " [" 
+        << list->getContent(index)->getExplain() << "] : "
+        << list->getContent(index)->getMean() << endl;
+    }
+  }
+
+  if (match == NULL && simList->getSize() == 0) {
+    cout << "#" << endl;
+    cout << "#    NO MATCH WORD !" << endl;
+  }
+  cout << "#" << endl;
+  
+  delete (simList);
+  delete (search);
+}
+
 void VocaEngine::testVoca(bool first, int correct, int total) {
   int cor = correct;
 
@@ -504,11 +624,8 @@ void VocaEngine::testVoca(bool first, int correct, int total) {
     cout << "#" << endl;
   } else {
     cout << "#    WRONG!" << endl;
-    if (one->getExplain() != NULL)
-      cout << "#    COLLECT ANSWER IS [" << one->getWord()
-           << " -- " << one->getExplain() << "]" << endl;
-    else
-      cout << "#    COLLECT ANSWER IS [" << one->getWord() << "]" << endl;
+    cout << "#    COLLECT ANSWER IS [" << one->getWord()
+      << " -- " << one->getExplain() << "]" << endl;
     one->loseScore();
     cout << "#" << endl;
   }
@@ -669,8 +786,9 @@ void VocaEngine::showMenu()
   cout << "#               [ MENU ]" << endl;
   cout << "#    (1) ADD" << endl;
   cout << "#    (2) LIST" << endl;
-  cout << "#    (3) TEST" << endl;
-  cout << "#    (4) EXIT" << endl;
+  cout << "#    (3) SEARCH" << endl;
+  cout << "#    (4) TEST" << endl;
+  cout << "#    (5) EXIT" << endl;
   cout << "#" << endl;
 }
 
@@ -686,7 +804,7 @@ bool VocaEngine::processMenu()
   char mean[100];
   cin >> input;
 
-  if (input[0] < '1' || input[0] > '4') {
+  if (input[0] < '1' || input[0] > '5') {
     cout << "#    WRONG INPUT" << endl;
     cout << "#" << endl;
     return true;
@@ -707,10 +825,14 @@ bool VocaEngine::processMenu()
       good = true;
       break;
     case '3':
-      testVoca(true, 0, 0);
+      searchVoca();
       good = true;
       break;
     case '4':
+      testVoca(true, 0, 0);
+      good = true;
+      break;
+    case '5':
       cout << "#    PROGRAM TERMINATION" << endl;
       cout << "#" << endl;
       good = false;
